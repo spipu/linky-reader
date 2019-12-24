@@ -13,6 +13,7 @@ declare(strict_types = 1);
 namespace App\Command;
 
 use App\Service\LinkyReader;
+use App\Service\PushService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -25,16 +26,24 @@ class LinkyReadCommand extends Command
     private $linkyReader;
 
     /**
+     * @var PushService
+     */
+    private $pushService;
+
+    /**
      * ConfigurationCommand constructor.
      * @param LinkyReader $linkyReader
+     * @param PushService $pushService
      * @param null|string $name
      */
     public function __construct(
         LinkyReader $linkyReader,
+        PushService $pushService,
         ?string $name = null
     ) {
         parent::__construct($name);
         $this->linkyReader = $linkyReader;
+        $this->pushService = $pushService;
     }
 
     /**
@@ -64,7 +73,9 @@ class LinkyReadCommand extends Command
     {
         $data = $this->linkyReader->read();
 
-        print_r($data);
+        if ($data !== null) {
+            $this->pushService->push($data);
+        }
 
         return 0;
     }
