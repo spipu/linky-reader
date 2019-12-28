@@ -8,57 +8,57 @@ class LinkyData
     /**
      * @var string|null
      */
-    private $linkyIdentifier;
+    public $linkyIdentifier;
 
     /**
      * @var string|null
      */
-    private $pricingOption;
+    public $pricingOption;
 
     /**
      * @var int|null
      */
-    private $subscribedIntensity;
+    public $subscribedIntensity;
 
     /**
      * @var int|null
      */
-    private $consumptionOffPeakHour;
+    public $consumptionOffPeakHour;
 
     /**
      * @var int|null
      */
-    private $consumptionPeakHour;
+    public $consumptionPeakHour;
 
     /**
      * @var bool
      */
-    private $offPeakHour = false;
+    public $offPeakHour = false;
 
     /**
      * @var int|null
      */
-    private $instantaneousIntensity;
+    public $instantaneousIntensity;
 
     /**
      * @var int|null
      */
-    private $maxIntensity;
+    public $maxIntensity;
 
     /**
      * @var int|null
      */
-    private $apparentPower;
+    public $apparentPower;
 
     /**
      * @var string|null
      */
-    private $timeGroup;
+    public $timeGroup;
 
     /**
      * @var string|null
      */
-    private $stateWord;
+    public $stateWord;
 
     /**
      * @return string|null
