@@ -13,6 +13,9 @@ class ScreenPush implements PushInterface
      */
     public function push(LinkyData $linkyData): void
     {
+        echo "=========================\n";
+        echo date('Y-m-d H:i:s')."\n";
         print_r($linkyData);
+        echo "=========================\n";
     }
 }
