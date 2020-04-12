@@ -64,7 +64,9 @@ class LinkyReader
             }
         }
 
-        $this->output->write(' - ok');
+        if ($data !== null) {
+            $this->output->write(' - ok');
+        }
         return $data;
     }
 
@@ -135,9 +137,9 @@ class LinkyReader
 
     /**
      * @param array $values
-     * @return LinkyData
+     * @return LinkyData|null
      */
-    private function createDataFromValues(array $values): LinkyData
+    private function createDataFromValues(array $values): ?LinkyData
     {
         $data = new LinkyData();
 
@@ -176,7 +178,9 @@ class LinkyReader
         }
 
         if (!$data->getLinkyIdentifier()) {
-            throw new \Exception('Data is invalid');
+            $this->output->write('Data is invalid');
+            $this->output->write(print_r($values, true));
+            return null;
         }
 
         return $data;
