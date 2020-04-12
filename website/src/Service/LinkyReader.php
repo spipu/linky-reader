@@ -43,6 +43,8 @@ class LinkyReader
                 return null;
             }
 
+            stream_set_blocking($handler, false);
+
             $this->output->write(' - read values');
 
             $values = $this->readNextMessage($handler);
