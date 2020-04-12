@@ -43,8 +43,6 @@ class LinkyReader
                 return null;
             }
 
-            stream_set_blocking($handler, false);
-
             $this->output->write(' - read values');
 
             $values = $this->readNextMessage($handler);
@@ -79,8 +77,7 @@ class LinkyReader
         $this->output->write('   - wait for next message');
 
         $try = 0;
-        while (($currentChar = fread($handler, 1)) !== $endChar) {
-            echo "[$currentChar]";
+        while (fread($handler, 1) !== $endChar) {
             $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
