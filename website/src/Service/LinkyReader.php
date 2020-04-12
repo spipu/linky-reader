@@ -78,9 +78,9 @@ class LinkyReader
 
         $try = 0;
         while (fread($handler, 1) !== $endChar) {
-            $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
+                $this->output->write('   - error limit reached');
                 return null;
             }
         }
@@ -90,9 +90,9 @@ class LinkyReader
         $string = '';
         $try = 0;
         while (($current = fread($handler, 1)) !== $endChar) {
-            $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
+                $this->output->write('   - error limit reached');
                 return null;
             }
             $string.= $current;

@@ -24,7 +24,7 @@ How to test :
 
 * Connect the Teleinfo USB to your raspberry
 * Connect your linky to the Teleinfo (using a phone or a network cable for example)
-* the user www-data must have right permissions on /dev/ttyUSB0
+* the user `www-data` must be in the group `dialout` to have read permissions on `/dev/ttyUSB0`
 * launch the following command:
 
 ```bash 
