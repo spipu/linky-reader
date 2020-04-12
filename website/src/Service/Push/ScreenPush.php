@@ -9,6 +9,14 @@ use App\Service\Output;
 class ScreenPush implements PushInterface
 {
     /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return 'screen';
+    }
+
+    /**
      * @param LinkyData $linkyData
      * @param Output $output
      * @return void
@@ -16,9 +24,7 @@ class ScreenPush implements PushInterface
     public function push(LinkyData $linkyData, Output $output): void
     {
         $output->write('=========================');
-
         $output->write(print_r($linkyData, true));
-
         $output->write('=========================');
     }
 }

@@ -9,6 +9,11 @@ use App\Service\Output;
 interface PushInterface
 {
     /**
+     * @return string
+     */
+    public function getCode(): string;
+
+    /**
      * @param LinkyData $linkyData
      * @param Output $output
      * @return void

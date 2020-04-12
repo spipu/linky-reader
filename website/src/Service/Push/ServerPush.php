@@ -41,14 +41,20 @@ class ServerPush implements PushInterface
     }
 
     /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return 'server';
+    }
+
+    /**
      * @param LinkyData $linkyData
      * @param Output $output
      * @return void
      */
     public function push(LinkyData $linkyData, Output $output): void
     {
-        $output->write('Push to external server');
-
         $output->write(' - prepare query');
         $values = json_decode(json_encode($linkyData), true);
         unset($values['linkyIdentifier']);

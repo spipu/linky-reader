@@ -48,6 +48,7 @@ class PushService
     public function push(LinkyData $linkyData): void
     {
         foreach ($this->services as $service) {
+            $this->output->write('Push to [' . $service->getCode() . ']');
             $service->push($linkyData, $this->output);
         }
     }
