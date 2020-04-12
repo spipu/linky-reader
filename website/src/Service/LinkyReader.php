@@ -39,6 +39,7 @@ class LinkyReader
             $this->output->write(' - connect to ' . $this->source);
             $handler = fopen($this->source, 'r');
             if (!$handler) {
+                $this->output->write(' - failed');
                 return null;
             }
 
@@ -46,6 +47,7 @@ class LinkyReader
 
             $values = $this->readNextMessage($handler);
             if ($values === null) {
+                $this->output->write(' - failed');
                 return null;
             }
 

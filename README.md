@@ -18,7 +18,7 @@ You must install a Rasp Debian 10 Buster, with the following packages :
 Your RaspBerry must be connected to your network (using wifi or cable), and accessible with ssh.
 
 '
-## How to test directly
+## How to
 
 How to test :
 
@@ -33,7 +33,13 @@ sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
 
 to exit : CTRL + A then CTRL + X
 
-## Sources :
+Then, you can test the php script:
+
+```bash
+sudo -u www-data /var/www/linky-reader/website/bin/console app:linky:read
+```
+
+## Sources
 
 * http://www.piblo.fr/raspberry-et-linky/
 * https://www.jonathandupre.fr/articles/24-logiciel-scripts/208-suivi-consommation-electrique-compteur-edf-linky-avec-raspberry-pi-zero-w/
