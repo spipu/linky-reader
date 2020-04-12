@@ -72,17 +72,23 @@ class LinkyReader
 
         $tryLimit = 20000;
 
+        $this->output->write('   - wait for next message');
+
         $try = 0;
         while (fread($handler, 1) !== $endChar) {
+            $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
                 return null;
             }
         }
 
+        $this->output->write('   - read message');
+
         $string = '';
         $try = 0;
         while (($current = fread($handler, 1)) !== $endChar) {
+            $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
                 return null;
@@ -90,6 +96,8 @@ class LinkyReader
             $string.= $current;
         }
         $rows = explode("\n", $string);
+
+        $this->output->write('   - convert message');
 
         $values = [];
         foreach ($rows as $row) {
