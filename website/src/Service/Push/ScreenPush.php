@@ -23,8 +23,6 @@ class ScreenPush implements PushInterface
      */
     public function push(LinkyData $linkyData, Output $output): void
     {
-        $output->write('=========================');
         $output->write(print_r($linkyData, true));
-        $output->write('=========================');
     }
 }
