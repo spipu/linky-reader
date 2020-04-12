@@ -1993,12 +1993,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-ui.git",
-                "reference": "1f20c67371eb967be5844613e50fa065e3d54ac8"
+                "reference": "860ff17f5f9edbad0248d5430569ebe18fb18054"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/1f20c67371eb967be5844613e50fa065e3d54ac8",
-                "reference": "1f20c67371eb967be5844613e50fa065e3d54ac8",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/860ff17f5f9edbad0248d5430569ebe18fb18054",
+                "reference": "860ff17f5f9edbad0248d5430569ebe18fb18054",
                 "shasum": ""
             },
             "require": {
@@ -2025,7 +2025,7 @@
                 }
             ],
             "description": "Spipu User Interface Bundle",
-            "time": "2020-03-30T08:55:43+00:00"
+            "time": "2020-04-12T12:49:56+00:00"
         },
         {
             "name": "symfony/asset",
