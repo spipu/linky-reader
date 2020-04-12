@@ -79,7 +79,8 @@ class LinkyReader
         $this->output->write('   - wait for next message');
 
         $try = 0;
-        while (fread($handler, 1) !== $endChar) {
+        while (($currentChar = fread($handler, 1)) !== $endChar) {
+            echo "[$currentChar]";
             $this->output->write(sprintf('     - try %d', $try));
             $try ++;
             if ($try > $tryLimit) {
