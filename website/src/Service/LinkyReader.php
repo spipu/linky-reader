@@ -39,7 +39,7 @@ class LinkyReader
             $this->output->write(' - connect to ' . $this->source);
 
             ini_set('max_execution_time', 30);
-            exec("stty -F {$this->source} 1200 cs7 -parodd");
+            exec("stty -F {$this->source} 1200 cs7");
             $handler = fopen($this->source, 'r');
 
             if (!$handler) {
