@@ -14,14 +14,22 @@ class PushService
     private $services;
 
     /**
+     * @var Output
+     */
+    private $output;
+
+    /**
      * PushService constructor.
      * @param iterable $services
+     * @param Output $output
      */
-    public function __construct(iterable $services)
+    public function __construct(iterable $services, Output $output)
     {
         foreach ($services as $service) {
             $this->addService($service);
         }
+
+        $this->output = $output;
     }
 
     /**
@@ -40,7 +48,7 @@ class PushService
     public function push(LinkyData $linkyData): void
     {
         foreach ($this->services as $service) {
-            $service->push($linkyData);
+            $service->push($linkyData, $this->output);
         }
     }
 }

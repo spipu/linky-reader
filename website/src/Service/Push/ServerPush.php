@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Service\Push;
 
 use App\Entity\LinkyData;
+use App\Service\Output;
 use Symfony\Component\HttpClient\HttpClient;
 
 class ServerPush implements PushInterface
@@ -41,10 +42,14 @@ class ServerPush implements PushInterface
 
     /**
      * @param LinkyData $linkyData
+     * @param Output $output
      * @return void
      */
-    public function push(LinkyData $linkyData): void
+    public function push(LinkyData $linkyData, Output $output): void
     {
+        $output->write('Push to external server');
+
+        $output->write(' - prepare query');
         $values = json_decode(json_encode($linkyData), true);
         unset($values['linkyIdentifier']);
 
@@ -56,6 +61,8 @@ class ServerPush implements PushInterface
         );
 
         $fields['hash'] = sha1(http_build_query($fields).$this->apiKey);
+
+        $output->write(' - make query');
 
         $client = HttpClient::create(
             [
@@ -70,8 +77,10 @@ class ServerPush implements PushInterface
             ['body' => $fields]
         );
         if ($response->getStatusCode() !== 200) {
+            $output->write(' - error');
             throw new \Exception($response->getContent());
         }
-        echo "OK\n";
+
+        $output->write(' - ok');
     }
 }

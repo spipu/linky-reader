@@ -4,18 +4,22 @@ declare(strict_types = 1);
 namespace App\Service\Push;
 
 use App\Entity\LinkyData;
+use App\Service\Output;
 
 class ScreenPush implements PushInterface
 {
     /**
      * @param LinkyData $linkyData
+     * @param Output $output
      * @return void
      */
-    public function push(LinkyData $linkyData): void
+    public function push(LinkyData $linkyData, Output $output): void
     {
-        echo "=========================\n";
-        echo date('Y-m-d H:i:s')."\n";
-        print_r($linkyData);
-        echo "=========================\n";
+        $output->write('=========================');
+        $output->write(date('Y-m-d H:i:s'));
+
+        $output->write(print_r($linkyData, true));
+
+        $output->write('=========================');
     }
 }

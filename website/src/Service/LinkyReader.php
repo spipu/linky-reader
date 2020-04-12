@@ -8,16 +8,23 @@ use App\Entity\LinkyData;
 class LinkyReader
 {
     /**
+     * @var Output
+     */
+    private $output;
+
+    /**
      * @var string
      */
     private $source;
 
     /**
      * LinkyReader constructor.
+     * @param Output $output
      * @param string $source
      */
-    public function __construct(string $source = '/dev/ttyUSB0')
+    public function __construct(Output $output, string $source = '/dev/ttyUSB0')
     {
+        $this->output = $output;
         $this->source = $source;
     }
 
@@ -26,25 +33,32 @@ class LinkyReader
      */
     public function read(): ?LinkyData
     {
+        $this->output->write('Read Linky Data');
         $data = null;
         try {
+            $this->output->write(' - connect to ' . $this->source);
             $handler = fopen($this->source, 'r');
             if (!$handler) {
                 return null;
             }
+
+            $this->output->write(' - read values');
 
             $values = $this->readNextMessage($handler);
             if ($values === null) {
                 return null;
             }
 
+            $this->output->write(' - convert values');
             $data = $this->createDataFromValues($values);
         } finally {
             if ($handler) {
+                $this->output->write(' - close connection');
                 fclose($handler);
             }
         }
 
+        $this->output->write(' - ok');
         return $data;
     }
 

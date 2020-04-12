@@ -26,6 +26,7 @@ services:
     App\Service\PushService:
         arguments:
             - !tagged 'app.service.push'
+            - '@App\Service\Output'
 
     App\Service\Push\:
         resource: '../src/Service/Push/*'
