@@ -33,6 +33,7 @@ class LinkyReader
      */
     public function read(): ?LinkyData
     {
+        set_time_limit(30);
         $this->output->write('Read Linky Data');
         $data = null;
         try {
