@@ -33,14 +33,23 @@ sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
 
 to exit : CTRL + A then CTRL + X
 
+Clone this project in `/var/www/linky-reader`
+
 Then, you can test the php script:
 
 ```bash
 sudo -u www-data /var/www/linky-reader/website/bin/console app:linky:read
 ```
 
+If all is working fine, you can add it to the crontab of the `www-data` user.
+
+```
+# m h  dom mon dow   command
+* * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron.log
+```
+
 ## Sources
 
 * http://www.piblo.fr/raspberry-et-linky/
 * https://www.jonathandupre.fr/articles/24-logiciel-scripts/208-suivi-consommation-electrique-compteur-edf-linky-avec-raspberry-pi-zero-w/
-
+* https://www.jonathandupre.fr/articles/24-logiciel-scripts/210-suivi-consommation-electrique-compteur-edf-linky-partie-2/
