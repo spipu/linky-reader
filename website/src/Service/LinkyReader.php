@@ -33,12 +33,15 @@ class LinkyReader
      */
     public function read(): ?LinkyData
     {
-        set_time_limit(30);
         $this->output->write('Read Linky Data');
         $data = null;
         try {
             $this->output->write(' - connect to ' . $this->source);
+
+            ini_set('max_execution_time', 30);
+            exec("stty -F {$this->source} 1200 cs7 -parodd");
             $handler = fopen($this->source, 'r');
+
             if (!$handler) {
                 $this->output->write(' - failed');
                 return null;
@@ -170,6 +173,10 @@ class LinkyReader
         }
         if (array_key_exists('MOTDETAT', $values)) {
             $data->setStateWord((string) $values['MOTDETAT']);
+        }
+
+        if (!$data->getLinkyIdentifier()) {
+            throw new \Exception('Data is invalid');
         }
 
         return $data;
