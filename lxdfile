@@ -1,0 +1,5 @@
+name=weather
+template=debian-10-buster
+host=linky-reader.lxc
+delivery-user=delivery
+mount=.:/var/www/linky-reader
