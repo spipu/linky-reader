@@ -4,20 +4,17 @@
 
 {% block header_title %}{{  parent() }} - Home{% endblock %}
 
-{% block main_title %}HomePage{% endblock %}
+{% block main_title %}Linky Reader{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    My Homepage
+                    Last Log
                 </div>
                 <div class="card-body">
-                    This is a homepage test
-                </div>
-                <div class="card-footer">
-                    Super Footer
+                    <pre>{{ content }}</pre>
                 </div>
             </div>
         </div>
