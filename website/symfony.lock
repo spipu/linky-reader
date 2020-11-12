@@ -93,6 +93,15 @@
     "egulias/email-validator": {
         "version": "2.1.12"
     },
+    "laminas/laminas-code": {
+        "version": "3.5.0"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.3.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
+    },
     "monolog/monolog": {
         "version": "1.25.3"
     },
@@ -523,6 +532,9 @@
     },
     "twig/twig": {
         "version": "v3.0.0"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.6.0"
