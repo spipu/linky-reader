@@ -152,12 +152,6 @@ class LinkyReader
         if (array_key_exists('ISOUSC', $values)) {
             $data->setSubscribedIntensity((int) $values['ISOUSC']);
         }
-        if (array_key_exists('HCHC', $values)) {
-            $data->setConsumptionOffPeakHour((int) $values['HCHC']);
-        }
-        if (array_key_exists('HCHP', $values)) {
-            $data->setConsumptionPeakHour((int) $values['HCHP']);
-        }
         if (array_key_exists('PTEC', $values)) {
             $data->setOffPeakHour($values['PTEC'] == 'HC');
         }
@@ -175,6 +169,19 @@ class LinkyReader
         }
         if (array_key_exists('MOTDETAT', $values)) {
             $data->setStateWord((string) $values['MOTDETAT']);
+        }
+
+        // Consumption
+        $data->setConsumptionOffPeakHour(0);
+        $data->setConsumptionPeakHour(0);
+        if (array_key_exists('HCHC', $values)) {
+            $data->setConsumptionOffPeakHour((int) $values['HCHC']);
+        }
+        if (array_key_exists('HCHP', $values)) {
+            $data->setConsumptionPeakHour((int) $values['HCHP']);
+        }
+        if (array_key_exists('BASE', $values)) {
+            $data->setConsumptionPeakHour((int) $values['BASE']);
         }
 
         if (!$data->getLinkyIdentifier()) {
