@@ -103,6 +103,7 @@ class LinkyReader
             }
             $string.= $current;
         }
+        $this->output->write(trim($string));
         $rows = explode("\n", $string);
 
         $this->output->write('   - convert message');
@@ -114,6 +115,7 @@ class LinkyReader
                 $values[$key] = $value;
             }
         }
+        $this->output->write(print_r($values, true));
 
         return $values;
     }
