@@ -1,4 +1,4 @@
-# linky-reader
+# Linky-reader
 
 ## Install
 
@@ -7,17 +7,15 @@ You must buy :
  * RaspBerry PI 3
  * Micro Teleinfo V2.0 USB [link](https://www.tindie.com/products/hallard/micro-teleinfo-v20/)
  
-You must install a Rasp Debian 10 Buster, with the following packages :
+You must install a Rasp Debian 11 Bullseye, with the following packages :
 
- * ssh
  * picocom
  * apache2
- * php 7.3 (cli and apache-mod)
+ * php (cli and apache-mod)
  * all classical php extensions
  
 Your RaspBerry must be connected to your network (using wifi or cable), and accessible with ssh.
 
-'
 ## How to
 
 How to test :
@@ -31,22 +29,19 @@ How to test :
 sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
 ```
 
+Normally it will display Linky direct information.
+
 to exit : CTRL + A then CTRL + X
 
-Clone this project in `/var/www/linky-reader`
+Then you can install this project in `/var/www/linky-reader`.
 
-Then, you can test the php script:
+Finally, you can test the php script:
 
 ```bash
 sudo -u www-data /var/www/linky-reader/website/bin/console app:linky:read
 ```
 
-If all is working fine, you can add it to the crontab of the `www-data` user.
-
-```
-# m h  dom mon dow   command
-* * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron.log
-```
+You can check the [Full install procedure](./INSTALL.md) for more details.
 
 ## Sources
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PHP_VERSION="7.3"
+PHP_VERSION="7.4"
 
 echo " > Install Apache + PHP"
 
