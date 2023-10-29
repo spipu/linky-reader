@@ -39,7 +39,9 @@ sudo vim /etc/ssh/sshd_config
 * PasswordAuthentication yes
 
 ```bash
+sudo systemctl enable ssh
 sudo systemctl restart ssh
+sudo systemctl status ssh
 ```
 
 From now, do all using SSH, with your personal ssh key, it will be easiest for all the next steps.
