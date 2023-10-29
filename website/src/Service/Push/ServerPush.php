@@ -1,35 +1,20 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Service\Push;
 
 use App\Entity\LinkyData;
 use App\Service\Output;
+use Exception;
 use Symfony\Component\HttpClient\HttpClient;
 
 class ServerPush implements PushInterface
 {
-    /**
-     * @var string
-     */
-    private $pushUrl;
+    private string $pushUrl;
+    private string $apiName;
+    private string $apiKey;
 
-    /**
-     * @var string
-     */
-    private $apiName;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * ServerPush constructor.
-     * @param string $pushUrl
-     * @param string $apiName
-     * @param string $apiKey
-     */
     public function __construct(
         string $pushUrl,
         string $apiName,
@@ -40,9 +25,6 @@ class ServerPush implements PushInterface
         $this->apiKey = $apiKey;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return 'server';
@@ -52,6 +34,7 @@ class ServerPush implements PushInterface
      * @param LinkyData $linkyData
      * @param Output $output
      * @return void
+     * @SuppressWarnings(PMD.StaticAccess)
      */
     public function push(LinkyData $linkyData, Output $output): void
     {
@@ -66,7 +49,7 @@ class ServerPush implements PushInterface
             'values'   => json_encode($values),
         );
 
-        $fields['hash'] = sha1(http_build_query($fields).$this->apiKey);
+        $fields['hash'] = sha1(http_build_query($fields) . $this->apiKey);
 
         $output->write(' - make query');
 
@@ -84,7 +67,7 @@ class ServerPush implements PushInterface
         );
         if ($response->getStatusCode() !== 200) {
             $output->write(' - error');
-            throw new \Exception($response->getContent());
+            throw new Exception($response->getContent());
         }
 
         $output->write(' - ok');

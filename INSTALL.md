@@ -99,7 +99,6 @@ sudo chown xxxxx.root www
 cd ./www
 git clone git@github.com:spipu/linky-reader.git ./linky-reader
 sudo rm -rf /var/www/html
-sudo ln -s /var/www/linky-reader/website/public /var/www/html
 cd ~/
 ```
 
@@ -113,8 +112,6 @@ sudo apt -y install \
   php7.4-bcmath php7.4-curl php7.4-iconv php7.4-intl php7.4-json php7.4-mbstring \
   php7.4-readline php7.4-simplexml php7.4-xml php7.4-xsl php7.4-zip \
   php7.4-mysql php7.4-pdo php7.4-pdo-mysql
-
-sudo a2enmod rewrite
 ```
 
 Configure PHP - CLI
@@ -143,6 +140,69 @@ sudo vim /etc/php/7.4/apache2/conf.d/99-provision.ini
 
 ```ini
 same content
+```
+
+Configure Apache2 - Virtualhost
+
+```bash
+sudo a2enmod expires
+sudo a2enmod headers
+sudo a2enmod rewrite
+sudo vim /etc/apache2/sites-available/website.conf
+```
+
+```apacheconf
+<VirtualHost *:80>
+    SetEnv APP_ENV prod
+
+    AddDefaultCharset Off
+    AddType 'text/html; charset=UTF-8' html
+
+    DocumentRoot "/var/www/linky-reader/website/public"
+    DirectoryIndex index.php
+
+    <Directory "/var/www/linky-reader/website/public">
+        Options -Indexes +FollowSymLinks
+        AllowOverride None
+        Allow from All
+
+        RewriteEngine On
+        RewriteBase /
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-l
+        RewriteRule .* index.php [QSA,L]
+    </Directory>
+
+    <Directory ~ "/var/www/linky-reader/website/public/(bundles|media)/">
+        Options -Indexes +FollowSymLinks
+        AllowOverride None
+        Allow from All
+
+        <FilesMatch .*\.(ico|jpg|jpeg|png|gif|svg|js|css|swf|eot|ttf|otf|woff|woff2)$>
+            Header append Cache-Control public
+        </FilesMatch>
+
+        <FilesMatch .*\.(zip|gz|gzip|bz2|csv|xml)$>
+            Header append Cache-Control no-store
+        </FilesMatch>
+
+        <FilesMatch "\.(ph(p[3457]?|t|tml)|[aj]sp|p[ly]|sh|cgi|shtml?|html?)$">
+            SetHandler None
+            ForceType text/plain
+        </FilesMatch>
+    </Directory>
+
+    LogLevel warn
+    ErrorLog /var/log/apache2/linky-reader-error.log
+    CustomLog /var/log/apache2/linky-reader-access.log combined
+</VirtualHost>
+```
+
+```bash
+sudo rm /etc/apache2/sites-enabled/*
+sudo ln -s /etc/apache2/sites-available/website.conf /etc/apache2/sites-enabled/website.conf
+sudo apache2ctl -S
 ```
 
 Restart Apache 2

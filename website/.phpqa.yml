@@ -1,0 +1,31 @@
+phpqa:
+  extensions:
+    - php
+
+phpcs:
+  standard: .phpcs.xml
+  allowedErrorsCount: 0
+  ignoreWarnings: false
+  reports:
+    file:
+      checkstyle: checkstyle.xml
+
+phpmd:
+  allowedErrorsCount: 0
+  standard: .phpmd.xml
+
+phploc:
+  binary: ./vendor/bin/phploc
+
+phpcpd:
+  binary: ./vendor/bin/phpcpd
+  allowedErrorsCount: 0
+  minLines: 5
+  minTokens: 70
+
+phpmetrics:
+  config: null
+  git: false
+
+parallel-lint:
+  allowedErrorsCount: 0

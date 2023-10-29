@@ -2,24 +2,23 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
-        "composer/package-versions-deprecated": "1.11.99.4",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
-        "phpdocumentor/reflection-docblock": "^5.3",
-        "sensio/framework-extra-bundle": "^5.1",
+        "phpdocumentor/reflection-docblock": "*",
+        "sensio/framework-extra-bundle": "*",
         "spipu/core-bundle": "*",
         "spipu/ui-bundle": "*",
         "symfony/asset": "*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/expression-language": "*",
-        "symfony/flex": "^1.3.1",
+        "symfony/flex": "*",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
         "symfony/http-client": "*",
@@ -30,6 +29,7 @@
         "symfony/property-access": "*",
         "symfony/property-info": "*",
         "symfony/proxy-manager-bridge": "*",
+        "symfony/runtime": "*",
         "symfony/security-bundle": "*",
         "symfony/serializer": "*",
         "symfony/translation": "*",
@@ -41,10 +41,16 @@
         "twig/twig": "^3.0"
     },
     "require-dev": {
+        "edgedesign/phpqa": "*",
+        "pdepend/pdepend": "*",
+        "php-parallel-lint/php-parallel-lint": "*",
+        "phpmd/phpmd": "*",
+        "phpmetrics/phpmetrics": "*",
+        "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "*",
         "symfony/css-selector": "*",
         "symfony/debug-bundle": "*",
-        "symfony/maker-bundle": "^1.0",
+        "symfony/maker-bundle": "*",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"
     },
@@ -54,7 +60,9 @@
         },
         "sort-packages": true,
         "allow-plugins": {
-            "symfony/flex": true
+            "symfony/flex": true,
+            "php-http/discovery": true,
+            "symfony/runtime": true
         }
     },
     "autoload": {
@@ -71,9 +79,9 @@
         "paragonie/random_compat": "2.*",
         "symfony/polyfill-ctype": "*",
         "symfony/polyfill-iconv": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php56": "*"
+        "symfony/polyfill-php72": "*",
+        "sebastian/phpcpd": "*",
+        "phploc/phploc":    "*"
     },
     "scripts": {
         "auto-scripts": {
@@ -94,7 +102,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "4.4.*"
+            "require": "5.4.*"
         }
     }
 }

@@ -174,6 +174,15 @@
     "spipu/ui-bundle": {
         "version": "dev-master"
     },
+    "squizlabs/php_codesniffer": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        }
+    },
     "symfony/asset": {
         "version": "v4.4.2"
     },
@@ -203,9 +212,6 @@
         ]
     },
     "symfony/css-selector": {
-        "version": "v4.4.2"
-    },
-    "symfony/debug": {
         "version": "v4.4.2"
     },
     "symfony/debug-bundle": {
@@ -300,9 +306,6 @@
     "symfony/http-kernel": {
         "version": "v4.4.2"
     },
-    "symfony/inflector": {
-        "version": "v4.4.2"
-    },
     "symfony/intl": {
         "version": "v4.4.2"
     },
@@ -360,9 +363,6 @@
         "version": "v1.18.1"
     },
     "symfony/polyfill-mbstring": {
-        "version": "v1.13.1"
-    },
-    "symfony/polyfill-php72": {
         "version": "v1.13.1"
     },
     "symfony/polyfill-php73": {

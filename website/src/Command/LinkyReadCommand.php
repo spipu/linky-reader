@@ -1,14 +1,6 @@
 <?php
-/**
- * This file is part of a Spipu Bundle
- *
- * (c) Laurent Minguet
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Command;
 
@@ -20,37 +12,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class LinkyReadCommand extends Command
 {
-    /**
-     * @var LinkyReader
-     */
-    private $linkyReader;
+    private LinkyReader $linkyReader;
+    private PushService $pushService;
 
-    /**
-     * @var PushService
-     */
-    private $pushService;
-
-    /**
-     * ConfigurationCommand constructor.
-     * @param LinkyReader $linkyReader
-     * @param PushService $pushService
-     * @param null|string $name
-     */
     public function __construct(
         LinkyReader $linkyReader,
         PushService $pushService,
         ?string $name = null
     ) {
         parent::__construct($name);
+
         $this->linkyReader = $linkyReader;
         $this->pushService = $pushService;
     }
 
-    /**
-     * Configure the command
-     *
-     * @return void
-     */
     protected function configure(): void
     {
         $this
@@ -61,11 +36,8 @@ class LinkyReadCommand extends Command
     }
 
     /**
-     * Execute the command
-     *
      * @param InputInterface $input
      * @param OutputInterface $output
-     *
      * @return int
      * @SuppressWarnings(PMD.UnusedFormalParameter)
      */
@@ -77,6 +49,6 @@ class LinkyReadCommand extends Command
             $this->pushService->push($data);
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 }

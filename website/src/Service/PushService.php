@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -11,18 +12,9 @@ class PushService
     /**
      * @var PushInterface[]
      */
-    private $services;
+    private array $services = [];
+    private Output $output;
 
-    /**
-     * @var Output
-     */
-    private $output;
-
-    /**
-     * PushService constructor.
-     * @param iterable $services
-     * @param Output $output
-     */
     public function __construct(iterable $services, Output $output)
     {
         foreach ($services as $service) {
@@ -32,19 +24,11 @@ class PushService
         $this->output = $output;
     }
 
-    /**
-     * @param PushInterface $service
-     * @return void
-     */
     private function addService(PushInterface $service): void
     {
         $this->services[] = $service;
     }
 
-    /**
-     * @param LinkyData $linkyData
-     * @return void
-     */
     public function push(LinkyData $linkyData): void
     {
         $this->output->write('Push - BEGIN');

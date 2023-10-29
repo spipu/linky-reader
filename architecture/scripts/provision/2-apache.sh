@@ -27,6 +27,8 @@ apt-get -qq -y install \
   > /dev/null
 
 echo " > Configure Apache + PHP"
+a2enmod expires > /dev/null
+a2enmod headers > /dev/null
 a2enmod rewrite > /dev/null
 
 rm -f /etc/php/${PHP_VERSION}/cli/conf.d/99-provision.ini
@@ -35,8 +37,12 @@ ln -s $CONFIG_FOLDER/php.ini /etc/php/${PHP_VERSION}/cli/conf.d/99-provision.ini
 rm -f /etc/php/${PHP_VERSION}/apache2/conf.d/99-provision.ini
 ln -s $CONFIG_FOLDER/php.ini /etc/php/${PHP_VERSION}/apache2/conf.d/99-provision.ini
 
+rm -f /etc/apache2/sites-available/*
+rm -f /etc/apache2/sites-enabled/*
+ln -s $CONFIG_FOLDER/virtualhost.conf /etc/apache2/sites-available/website.conf
+ln -s /etc/apache2/sites-available/website.conf /etc/apache2/sites-enabled/website.conf
+
 rm -rf /var/www/html
-ln -s ${ENV_FOLDER}/website/public /var/www/html
 
 echo " > Restart Apache"
 

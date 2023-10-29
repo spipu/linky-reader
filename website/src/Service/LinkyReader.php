@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Service;
 
@@ -7,34 +8,20 @@ use App\Entity\LinkyData;
 
 class LinkyReader
 {
-    /**
-     * @var Output
-     */
-    private $output;
+    private Output $output;
+    private string $source;
 
-    /**
-     * @var string
-     */
-    private $source;
-
-    /**
-     * LinkyReader constructor.
-     * @param Output $output
-     * @param string $source
-     */
     public function __construct(Output $output, string $source = '/dev/ttyUSB0')
     {
         $this->output = $output;
         $this->source = $source;
     }
 
-    /**
-     * @return LinkyData|null
-     */
     public function read(): ?LinkyData
     {
         $this->output->write('Read Linky Data');
         $data = null;
+        $handler = null;
         try {
             $this->output->write(' - connect to ' . $this->source);
 
@@ -84,7 +71,7 @@ class LinkyReader
 
         $try = 0;
         while (fread($handler, 1) !== $endChar) {
-            $try ++;
+            $try++;
             if ($try > $tryLimit) {
                 $this->output->write('   - error limit reached');
                 return null;
@@ -96,12 +83,12 @@ class LinkyReader
         $string = '';
         $try = 0;
         while (($current = fread($handler, 1)) !== $endChar) {
-            $try ++;
+            $try++;
             if ($try > $tryLimit) {
                 $this->output->write('   - error limit reached');
                 return null;
             }
-            $string.= $current;
+            $string .= $current;
         }
         $this->output->write("\n" . trim(str_replace("\n\n", "\n", $string)) . "\n");
         $rows = explode("\n", $string);
@@ -120,10 +107,6 @@ class LinkyReader
         return $values;
     }
 
-    /**
-     * @param string $row
-     * @return array
-     */
     private function readRow(string $row): array
     {
         $row = preg_replace('/[^a-zA-Z0-9 ]/', '', $row);
@@ -137,54 +120,12 @@ class LinkyReader
         return $values;
     }
 
-    /**
-     * @param array $values
-     * @return LinkyData|null
-     */
     private function createDataFromValues(array $values): ?LinkyData
     {
         $data = new LinkyData();
 
-        if (array_key_exists('ADCO', $values)) {
-            $data->setLinkyIdentifier((string) $values['ADCO']);
-        }
-        if (array_key_exists('OPTARIF', $values)) {
-            $data->setPricingOption((string) $values['OPTARIF']);
-        }
-        if (array_key_exists('ISOUSC', $values)) {
-            $data->setSubscribedIntensity((int) $values['ISOUSC']);
-        }
-        if (array_key_exists('PTEC', $values)) {
-            $data->setOffPeakHour($values['PTEC'] == 'HC');
-        }
-        if (array_key_exists('IINST', $values)) {
-            $data->setInstantaneousIntensity((int) $values['IINST']);
-        }
-        if (array_key_exists('IMAX', $values)) {
-            $data->setMaxIntensity((int) $values['IMAX']);
-        }
-        if (array_key_exists('PAPP', $values)) {
-            $data->setApparentPower((int) $values['PAPP']);
-        }
-        if (array_key_exists('HHPHC', $values)) {
-            $data->setTimeGroup((string) $values['HHPHC']);
-        }
-        if (array_key_exists('MOTDETAT', $values)) {
-            $data->setStateWord((string) $values['MOTDETAT']);
-        }
-
-        // Consumption
-        $data->setConsumptionOffPeakHour(0);
-        $data->setConsumptionPeakHour(0);
-        if (array_key_exists('HCHC', $values)) {
-            $data->setConsumptionOffPeakHour((int) $values['HCHC']);
-        }
-        if (array_key_exists('HCHP', $values)) {
-            $data->setConsumptionPeakHour((int) $values['HCHP']);
-        }
-        if (array_key_exists('BASE', $values)) {
-            $data->setConsumptionPeakHour((int) $values['BASE']);
-        }
+        $this->prepareDataHeader($values, $data);
+        $this->prepareDataConsumption($data, $values);
 
         if (!$data->getLinkyIdentifier()) {
             $this->output->write('Data is invalid');
@@ -193,5 +134,52 @@ class LinkyReader
         }
 
         return $data;
+    }
+
+    public function prepareDataHeader(array $values, LinkyData $data): void
+    {
+        if (array_key_exists('ADCO', $values)) {
+            $data->setLinkyIdentifier((string)$values['ADCO']);
+        }
+        if (array_key_exists('OPTARIF', $values)) {
+            $data->setPricingOption((string)$values['OPTARIF']);
+        }
+        if (array_key_exists('ISOUSC', $values)) {
+            $data->setSubscribedIntensity((int)$values['ISOUSC']);
+        }
+        if (array_key_exists('HHPHC', $values)) {
+            $data->setTimeGroup((string)$values['HHPHC']);
+        }
+        if (array_key_exists('MOTDETAT', $values)) {
+            $data->setStateWord((string)$values['MOTDETAT']);
+        }
+    }
+
+    public function prepareDataConsumption(LinkyData $data, array $values): void
+    {
+        if (array_key_exists('PTEC', $values)) {
+            $data->setOffPeakHour($values['PTEC'] == 'HC');
+        }
+        if (array_key_exists('IINST', $values)) {
+            $data->setInstantaneousIntensity((int)$values['IINST']);
+        }
+        if (array_key_exists('IMAX', $values)) {
+            $data->setMaxIntensity((int)$values['IMAX']);
+        }
+        if (array_key_exists('PAPP', $values)) {
+            $data->setApparentPower((int)$values['PAPP']);
+        }
+
+        $data->setConsumptionOffPeakHour(0);
+        $data->setConsumptionPeakHour(0);
+        if (array_key_exists('HCHC', $values)) {
+            $data->setConsumptionOffPeakHour((int)$values['HCHC']);
+        }
+        if (array_key_exists('HCHP', $values)) {
+            $data->setConsumptionPeakHour((int)$values['HCHP']);
+        }
+        if (array_key_exists('BASE', $values)) {
+            $data->setConsumptionPeakHour((int)$values['BASE']);
+        }
     }
 }
