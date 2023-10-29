@@ -1,4 +1,4 @@
-name=weather
+name=linky-reader
 template=debian-11-bullseye
 host=linky-reader.lxc
 delivery-user=delivery
