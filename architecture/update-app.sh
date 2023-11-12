@@ -13,7 +13,7 @@ echo ""
 echo "==[CLEAN FILES]=="
 echo ""
 
-sudo -u www-data rm -rf "$FOLDER/website/war/cache"
+sudo -u www-data rm -rf "$FOLDER/website/var/cache"
 sudo -u www-data rm -rf "$FOLDER/website/var/log"
 rm -rf "$FOLDER/website/var/cache"
 rm -rf "$FOLDER/website/var/log"
