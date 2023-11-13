@@ -329,7 +329,7 @@ cd /var/www/linky-reader
 
 Now you can test the web interface, it should display that the Log File is missing.
 
-The default username is  ̀admin` and the default password is `password`.
+The default username is `admin` and the default password is `password`.
 You must change it on the first login.
 
 ## Test
