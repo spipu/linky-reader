@@ -36,13 +36,6 @@ services:
         resource: '../src/Service/LinkyReader/Push/*'
         tags: ['app.service.push']
 
-    App\Service\LinkyReader\Push\ServerPush:
-        tags: ['app.service.push']
-        arguments:
-            - '%env(ENERGY_API_URL)%'
-            - '%env(ENERGY_API_NAME)%'
-            - '%env(ENERGY_API_KEY)%'
-
     # App Menu Definition
     spipu.ui.service.menu_definition:
         class: 'App\Service\MenuDefinition'

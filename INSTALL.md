@@ -306,10 +306,6 @@ MAILER_DSN=native://default
 APP_ENV=prod
 APP_SECRET=xxxx
 APP_ENCRYPTOR_KEY_PAIR=xxxx
-
-ENERGY_API_URL=https://external-website.fr/api
-ENERGY_API_NAME=XXXXXXXXX
-ENERGY_API_KEY=YYYYYYYY
 ```
 
 You must generate the secret, and the encryptor_key.
