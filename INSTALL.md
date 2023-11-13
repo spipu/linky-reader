@@ -301,6 +301,7 @@ vim /var/www/linky-reader/website/.env.local
 
 ```init
 DATABASE_URL=mysql://linky-reader:xxxxxx@localhost:3306/linky-reader?serverVersion=mariadb-10.5.21
+MAILER_DSN=native://default
 
 APP_ENV=prod
 APP_SECRET=xxxx
@@ -332,6 +333,9 @@ cd /var/www/linky-reader
 
 Now you can test the web interface, it should display that the Log File is missing.
 
+The default username is  ̀admin` and the default password is `password`.
+You must change it on the first login.
+
 ## Test
 
 You can test manually the Linky dial with this command
@@ -354,3 +358,7 @@ sudo -u www-data crontab -e
 After one minute, you will see the log file in the web interface.
 
 That's all!
+
+## Push to a server
+
+You can push the data to an external server, 
