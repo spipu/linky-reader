@@ -18,7 +18,7 @@ composer install
 ./bin/console assets:install --symlink --relative
 ./bin/console spipu:assets:install
 
-./bin/console doctrine:schema:update --force --dump-sql
+./bin/console doctrine:schema:update --force --dump-sql --complete
 
 set +e
 rm -rf ./var/* > /dev/null 2>&1

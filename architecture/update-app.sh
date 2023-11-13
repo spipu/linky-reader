@@ -38,7 +38,7 @@ echo ""
 echo "==[DOCTRINE]=="
 echo ""
 
-./bin/console doctrine:schema:update --force --dump-sql
+./bin/console doctrine:schema:update --force --dump-sql --complete
 
 echo ""
 echo "==[CLEAN FILES]=="
