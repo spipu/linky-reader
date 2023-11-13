@@ -52,5 +52,11 @@ sudo -u www-data rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
 set -e
 
 echo ""
+echo "==[FIXTURES]=="
+echo ""
+
+sudo -u www-data ./bin/console spipu:fixtures:load
+
+echo ""
 echo "==[FINISHED]=="
 echo ""
