@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\LinkyReader;
 
 use App\Entity\LinkyData;
-use App\Service\Push\PushInterface;
+use App\Service\LinkyReader\Push\PushInterface;
 
 class PushService
 {

@@ -21,6 +21,10 @@ echo "[${HOUR}]===[PROVISION]==="
 ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/provision.sh
 
 HOUR=$(date +%H:%M:%S)
+echo "[${HOUR}]===[CreateDB]==="
+ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/createDb.sh
+
+HOUR=$(date +%H:%M:%S)
 echo "[${HOUR}]===[PERMISSION]==="
 ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/permissions.sh
 

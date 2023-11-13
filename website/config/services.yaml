@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    spipu.core.encryptor.key_pair: '%env(resolve:APP_ENCRYPTOR_KEY_PAIR)%'
 
 services:
     # default configuration for services in *this* file
@@ -27,17 +28,32 @@ services:
         arguments:
             $logsDir: '%kernel.logs_dir%'
 
-    App\Service\PushService:
+    App\Service\LinkyReader\PushService:
         arguments:
             $services: !tagged 'app.service.push'
 
-    App\Service\Push\:
-        resource: '../src/Service/Push/*'
+    App\Service\LinkyReader\Push\:
+        resource: '../src/Service/LinkyReader/Push/*'
         tags: ['app.service.push']
 
-    App\Service\Push\ServerPush:
+    App\Service\LinkyReader\Push\ServerPush:
         tags: ['app.service.push']
         arguments:
             - '%env(ENERGY_API_URL)%'
             - '%env(ENERGY_API_NAME)%'
             - '%env(ENERGY_API_KEY)%'
+
+    # App Menu Definition
+    spipu.ui.service.menu_definition:
+        class: 'App\Service\MenuDefinition'
+        autowire: true
+
+    # Spipu User Bundle Configuration
+    Spipu\UserBundle\Service\ModuleConfigurationInterface:
+        class: Spipu\UserBundle\Service\ModuleConfiguration
+        public: true
+        arguments:
+            $entityName:      'App:User'
+            $entityClassName: '\App\Entity\User'
+            $allowAccountCreation: false
+            $allowPasswordRecovery: true

@@ -13,10 +13,12 @@ echo ""
 echo "==[CLEAN FILES]=="
 echo ""
 
-sudo -u www-data rm -rf "$FOLDER/website/var/cache"
-sudo -u www-data rm -rf "$FOLDER/website/var/log"
-rm -rf "$FOLDER/website/var/cache"
-rm -rf "$FOLDER/website/var/log"
+set +e
+rm -rf "$FOLDER/website/var/cache" > /dev/null 2>&1
+rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
+sudo -u www-data rm -rf "$FOLDER/website/var/cache" > /dev/null 2>&1
+sudo -u www-data rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
+set -e
 
 echo ""
 echo "==[COMPOSER UPDATE]=="
@@ -26,13 +28,28 @@ cd "$FOLDER/website"
 composer install
 
 echo ""
+echo "==[ASSETS]=="
+echo ""
+
+./bin/console assets:install --symlink --relative
+./bin/console spipu:assets:install
+
+echo ""
+echo "==[DOCTRINE]=="
+echo ""
+
+./bin/console doctrine:schema:update --force --dump-sql
+
+echo ""
 echo "==[CLEAN FILES]=="
 echo ""
 
-rm -rf "$FOLDER/website/var/cache"
-rm -rf "$FOLDER/website/var/log"
-sudo -u www-data rm -rf "$FOLDER/website/var/cache"
-sudo -u www-data rm -rf "$FOLDER/website/var/log"
+set +e
+rm -rf "$FOLDER/website/var/cache" > /dev/null 2>&1
+rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
+sudo -u www-data rm -rf "$FOLDER/website/var/cache" > /dev/null 2>&1
+sudo -u www-data rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
+set -e
 
 echo ""
 echo "==[FINISHED]=="

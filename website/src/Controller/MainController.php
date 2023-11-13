@@ -8,9 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/")
- */
 class MainController extends AbstractController
 {
     private string $logsDir;
@@ -20,10 +17,7 @@ class MainController extends AbstractController
         $this->logsDir = $logsDir;
     }
 
-    /**
-     * @Route("/", name="app_home", methods="GET")
-     * @return Response
-     */
+    #[Route(path: '/', name: 'app_home', methods: 'get')]
     public function home(): Response
     {
         $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron.log';

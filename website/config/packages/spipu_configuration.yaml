@@ -1,0 +1,26 @@
+imports:
+- { resource: "@SpipuConfigurationBundle/Resources/config/spipu_configuration.yaml" }
+
+spipu_configuration:
+    app.website.name:
+        type:     string
+        required: true
+        default:  "Linky Reader"
+
+    linky.server-push.enable:
+        type:     select
+        options:  Spipu\UiBundle\Form\Options\YesNo
+        required: true
+        default:  "0"
+
+    linky.server-push.url:
+        type: url
+        required: true
+
+    linky.server_push.api_name:
+        type: string
+        required: true
+
+    linky.server_push.api_key:
+        type: encrypted
+        required: true

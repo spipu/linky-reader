@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Service\Push;
+namespace App\Service\LinkyReader\Push;
 
 use App\Entity\LinkyData;
-use App\Service\Output;
+use App\Service\LinkyReader\Output;
 use Exception;
 use Symfony\Component\HttpClient\HttpClient;
 

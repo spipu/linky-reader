@@ -1,8 +1,14 @@
 security:
     enable_authenticator_manager: true
+    password_hashers:
+        App\Entity\User:
+            algorithm: auto
 
     providers:
-        in_memory: { memory: null }
+        spipu_users:
+            entity:
+                class: App\Entity\User
+                property: 'username'
 
     firewalls:
         dev:
@@ -11,6 +17,26 @@ security:
 
         main:
             pattern:      ^/
+            provider:     spipu_users
+            user_checker: Spipu\UserBundle\Security\UserChecker
+            form_login:
+                remember_me: true
+                login_path: spipu_user_security_login
+                check_path: spipu_user_security_login
+                enable_csrf: true
+                default_target_path: app_home
+            remember_me:
+                secret: "%kernel.secret%"
+                name: op_user_remember
+                lifetime: 31536000 # 1 year
+                httponly: false
+            logout:
+                path: spipu_user_security_logout
+                target: app_home
 
     access_control:
+        # Login & Logout
+        - { path: ^/login,               roles: PUBLIC_ACCESS }
+        - { path: ^/logout,              roles: PUBLIC_ACCESS }
+        # Main
         - { path: ^/,                    roles: PUBLIC_ACCESS }

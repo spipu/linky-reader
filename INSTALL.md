@@ -107,17 +107,21 @@ cd ~/
 Install PHP
 
 ```bash
+curl -sSL https://packages.sury.org/php/README.txt | sudo bash -
+sudo apt update
+
 sudo apt -y install \
-  libapache2-mod-php7.4 php7.4-cli \
-  php7.4-bcmath php7.4-curl php7.4-iconv php7.4-intl php7.4-json php7.4-mbstring \
-  php7.4-readline php7.4-simplexml php7.4-xml php7.4-xsl php7.4-zip \
-  php7.4-mysql php7.4-pdo php7.4-pdo-mysql
+  libapache2-mod-php8.1 php8.1-cli \
+  php8.1-common php8.1-gd php8.1-mysql \
+  php8.1-bcmath php8.1-curl php8.1-intl php8.1-mbstring \
+  php8.1-readline php8.1-xml php8.1-xsl php8.1-zip \
+  php8.1-mysql php8.1-pdo php8.1-pdo-mysql
 ```
 
 Configure PHP - CLI
 
 ```bash
-sudo vim /etc/php/7.4/cli/conf.d/99-provision.ini
+sudo vim /etc/php/8.1/cli/conf.d/99-provision.ini
 ```
 
 ```ini
@@ -135,7 +139,7 @@ session.auto_start = 0
 Configure PHP - Mod Apache
 
 ```bash
-sudo vim /etc/php/7.4/apache2/conf.d/99-provision.ini
+sudo vim /etc/php/8.1/apache2/conf.d/99-provision.ini
 ```
 
 ```ini
@@ -211,6 +215,69 @@ Restart Apache 2
 sudo systemctl restart apache2
 ```
 
+### MySQL
+
+Install MySQL
+
+```bash
+sudo apt-get install mariadb-server
+```
+
+Configure MySQL
+
+```bash
+sudo mkdir -p /var/log/mysql
+sudo vim /etc/mysql/mariadb.conf.d/provision.cnf
+```
+
+```apacheconf
+[mysqld]
+
+# Charset
+character-set-server = utf8
+collation-server = utf8_general_ci
+
+# InnoDB - Other settings
+innodb_flush_log_at_trx_commit = 1
+
+# Network and DNS resolution settings
+bind-address = 127.0.0.1
+port = 3306
+skip-name-resolve
+
+# Slow query Log settings
+slow_query_log = 1
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+long_query_time = 10
+```
+
+Restart MySQL
+
+```bash
+sudo systemctl restart mysql
+sudo systemctl enable mysql
+sudo systemctl status mysql
+```
+
+Create the app database and user
+
+```bash
+sudo mysql
+```
+
+```mysql
+CREATE DATABASE IF NOT EXISTS `linky-reader`;
+CREATE USER IF NOT EXISTS 'linky-reader'@'localhost' IDENTIFIED BY 'xxxxxx';
+GRANT USAGE ON *.* TO 'linky-reader'@'localhost';
+GRANT ALL PRIVILEGES ON `linky-reader`.* TO 'linky-reader'@'localhost' WITH GRANT OPTION;
+```
+
+Test the user
+
+```bash
+mysql -h localhost -u linky-reader -p linky-reader
+```
+
 ### Composer
 
 Install Composer
@@ -233,15 +300,18 @@ vim /var/www/linky-reader/website/.env.local
 ```
 
 ```init
+DATABASE_URL=mysql://linky-reader:xxxxxx@localhost:3306/linky-reader?serverVersion=mariadb-10.5.21
+
 APP_ENV=prod
 APP_SECRET=xxxx
+APP_ENCRYPTOR_KEY_PAIR=xxxx
 
 ENERGY_API_URL=https://external-website.fr/api
 ENERGY_API_NAME=XXXXXXXXX
 ENERGY_API_KEY=YYYYYYYY
 ```
 
-You must generate the secret, and you must have an external server that will be able to receive the data.
+You must generate the secret, and the encryptor_key.
 
 Configure the var folder
 
@@ -253,16 +323,11 @@ sudo chown xxxxx.www-data ./var
 chmod 775 ./var
 ```
 
-Install packages
+Install the application
 
 ```bash
-cd /var/www/linky-reader/website
-
-sudo rm -rf ./var/*
-
-composer install
-
-sudo rm -rf ./var/*
+cd /var/www/linky-reader
+./architecture/update-app.sh
 ```
 
 Now you can test the web interface, it should display that the Log File is missing.
