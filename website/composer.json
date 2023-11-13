@@ -11,7 +11,6 @@
         "doctrine/doctrine-migrations-bundle": "*",
         "doctrine/orm": "*",
         "phpdocumentor/reflection-docblock": "*",
-        "sensio/framework-extra-bundle": "*",
         "spipu/configuration-bundle": "*",
         "spipu/core-bundle": "*",
         "spipu/ui-bundle": "*",
