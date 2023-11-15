@@ -51,7 +51,6 @@ class PushService
             'rand'     => uniqid(),
             'values'   => json_encode($values),
         );
-        $this->output->write(print_r($fields, true));
 
         $fields['hash'] = sha1(http_build_query($fields) . $this->getConfApiKey());
 
