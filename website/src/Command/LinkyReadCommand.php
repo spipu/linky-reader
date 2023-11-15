@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Entity\EnergyData;
+use App\Repository\EnergyDataRepository;
 use App\Service\LinkyReader\LinkyReader;
 use App\Service\LinkyReader\PushService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,11 +18,20 @@ class LinkyReadCommand extends Command
     private LinkyReader $linkyReader;
     private PushService $pushService;
     private EntityManagerInterface $entityManager;
+    private EnergyDataRepository $energyDataRepository;
 
+    /**
+     * @param LinkyReader $linkyReader
+     * @param PushService $pushService
+     * @param EntityManagerInterface $entityManager
+     * @param EnergyDataRepository $energyDataRepository
+     * @param string|null $name
+     */
     public function __construct(
         LinkyReader $linkyReader,
         PushService $pushService,
         EntityManagerInterface $entityManager,
+        EnergyDataRepository $energyDataRepository,
         ?string $name = null
     ) {
         parent::__construct($name);
@@ -28,6 +39,7 @@ class LinkyReadCommand extends Command
         $this->linkyReader = $linkyReader;
         $this->pushService = $pushService;
         $this->entityManager = $entityManager;
+        $this->energyDataRepository = $energyDataRepository;
     }
 
     protected function configure(): void
@@ -47,15 +59,33 @@ class LinkyReadCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $data = $this->linkyReader->read();
-
-        if ($data !== null) {
-            $this->entityManager->persist($data);
-            $this->entityManager->flush();
-
-            $this->pushService->push($data);
-        }
+        $this->readLinky($output);
+        $this->pushData();
 
         return self::SUCCESS;
+    }
+
+    private function readLinky(OutputInterface $output): void
+    {
+        $energyData = $this->linkyReader->read();
+
+        if ($energyData !== null) {
+            $this->entityManager->persist($energyData);
+            $this->entityManager->flush();
+            $output->writeln(print_r($energyData->getDataToDisplay(), true));
+        }
+    }
+
+    private function pushData(): void
+    {
+        $rows = $this->energyDataRepository->findBy(
+            ['pushStatus' => [EnergyData::PUSH_STATUS_WAITING, EnergyData::PUSH_STATUS_ERROR]],
+            ['id' => 'ASC'],
+            100
+        );
+
+        foreach ($rows as $row) {
+            $this->pushService->push($row);
+        }
     }
 }

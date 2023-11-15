@@ -28,14 +28,6 @@ services:
         arguments:
             $logsDir: '%kernel.logs_dir%'
 
-    App\Service\LinkyReader\PushService:
-        arguments:
-            $services: !tagged 'app.service.push'
-
-    App\Service\LinkyReader\Push\:
-        resource: '../src/Service/LinkyReader/Push/*'
-        tags: ['app.service.push']
-
     # App Menu Definition
     spipu.ui.service.menu_definition:
         class: 'App\Service\MenuDefinition'

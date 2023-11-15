@@ -121,9 +121,7 @@ class LinkyReader
         if (count($values) < 3) {
             return [null, null];
         }
-        $values = array_map('trim', $values);
-
-        return $values;
+        return array_map('trim', $values);
     }
 
     private function createDataFromValues(array $values): EnergyData
