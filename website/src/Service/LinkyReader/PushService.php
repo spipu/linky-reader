@@ -75,10 +75,12 @@ class PushService
             $this->output->write(' - ok');
             $energyData->setPushStatus($energyData::PUSH_STATUS_PUSHED);
         } catch (Throwable $e) {
+            $error = $e->getCode() . ' - ' . $e->getMessage();
+            $this->output->write($error);
             $this->output->write(' - error');
             $energyData->setPushStatus($energyData::PUSH_STATUS_ERROR);
             $energyData->setPushNbTry($energyData->getPushNbTry() + 1);
-            $energyData->setPushLastError($e->getCode() . ' - ' . $e->getMessage());
+            $energyData->setPushLastError($error);
         } finally {
             $this->entityManager->flush();
             $this->output->write('Push - END');
