@@ -68,7 +68,9 @@ class PushService
             if ($response->getStatusCode() !== 200) {
                 throw new Exception($response->getContent(), $response->getStatusCode());
             }
-
+            if (trim($response->getContent()) !== 'OK') {
+                throw new Exception($response->getContent(), $response->getStatusCode());
+            }
             $this->output->write($response->getContent());
             $this->output->write(' - ok');
             $energyData->setPushStatus($energyData::PUSH_STATUS_PUSHED);
