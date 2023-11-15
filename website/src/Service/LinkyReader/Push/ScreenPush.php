@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\LinkyReader\Push;
 
-use App\Entity\LinkyData;
+use App\Entity\EnergyData;
 use App\Service\LinkyReader\Output;
 
 class ScreenPush implements PushInterface
@@ -14,8 +14,8 @@ class ScreenPush implements PushInterface
         return 'screen';
     }
 
-    public function push(LinkyData $linkyData, Output $output): void
+    public function push(EnergyData $energyData, Output $output): void
     {
-        $output->write(print_r($linkyData, true));
+        $output->write(print_r($energyData->getDataToDisplay(), true));
     }
 }

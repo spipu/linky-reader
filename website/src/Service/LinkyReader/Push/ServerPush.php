@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace App\Service\LinkyReader\Push;
 
-use App\Entity\LinkyData;
+use App\Entity\EnergyData;
 use App\Service\LinkyReader\Output;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Spipu\ConfigurationBundle\Service\ConfigurationManager;
 use Symfony\Component\HttpClient\HttpClient;
+use Throwable;
 
 class ServerPush implements PushInterface
 {
     private ConfigurationManager $configurationManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(
-        ConfigurationManager $configurationManager
+        ConfigurationManager $configurationManager,
+        EntityManagerInterface $entityManager
     ) {
         $this->configurationManager = $configurationManager;
+        $this->entityManager = $entityManager;
     }
 
     public function getCode(): string
@@ -26,12 +31,13 @@ class ServerPush implements PushInterface
     }
 
     /**
-     * @param LinkyData $linkyData
+     * @param EnergyData $energyData
      * @param Output $output
      * @return void
+     * @throws Throwable
      * @SuppressWarnings(PMD.StaticAccess)
      */
-    public function push(LinkyData $linkyData, Output $output): void
+    public function push(EnergyData $energyData, Output $output): void
     {
         if (!$this->getConfEnabled()) {
             $output->write(' => disabled in configuration');
@@ -39,8 +45,7 @@ class ServerPush implements PushInterface
         }
 
         $output->write(' - prepare query');
-        $values = json_decode(json_encode($linkyData), true);
-        unset($values['linkyIdentifier']);
+        $values = $energyData->getDataToPush();
 
         $fields = array(
             'username' => $this->getConfApiName(),
@@ -48,6 +53,7 @@ class ServerPush implements PushInterface
             'rand'     => uniqid(),
             'values'   => json_encode($values),
         );
+        $output->write(print_r($fields, true));
 
         $fields['hash'] = sha1(http_build_query($fields) . $this->getConfApiKey());
 
@@ -60,17 +66,23 @@ class ServerPush implements PushInterface
                 'max_redirects' => 5,
             ]
         );
-        $response = $client->request(
-            'POST',
-            $this->getConfUrl(),
-            ['body' => $fields]
-        );
-        if ($response->getStatusCode() !== 200) {
-            $output->write(' - error');
-            throw new Exception($response->getContent());
-        }
+        try {
+            $response = $client->request('POST', $this->getConfUrl(), ['body' => $fields]);
+            if ($response->getStatusCode() !== 200) {
+                throw new Exception($response->getContent(), $response->getStatusCode());
+            }
 
-        $output->write(' - ok');
+            $output->write(' - ok');
+            $energyData->setPushStatus($energyData::PUSH_STATUS_PUSHED);
+        } catch (Throwable $e) {
+            $output->write(' - error');
+            $energyData->setPushStatus($energyData::PUSH_STATUS_ERROR);
+            $energyData->setPushNbTry($energyData->getPushNbTry() + 1);
+            $energyData->setPushLastError($e->getCode() . ' - ' . $e->getMessage());
+            throw $e;
+        } finally {
+            $this->entityManager->flush();
+        }
     }
 
     private function getConfEnabled(): bool

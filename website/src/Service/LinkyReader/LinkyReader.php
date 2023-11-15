@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\LinkyReader;
 
-use App\Entity\LinkyData;
+use App\Entity\EnergyData;
 
 class LinkyReader
 {
@@ -17,7 +17,7 @@ class LinkyReader
         $this->source = $source;
     }
 
-    public function read(): ?LinkyData
+    public function read(): ?EnergyData
     {
         $this->output->write('Read Linky Data');
         $data = null;
@@ -39,6 +39,12 @@ class LinkyReader
             $values = $this->readNextMessage($handler);
             if ($values === null) {
                 $this->output->write(' - failed');
+                return null;
+            }
+
+            if (empty($values['ADCO'])) {
+                $this->output->write('Data is invalid, ADCO is missing');
+                $this->output->write(print_r($values, true));
                 return null;
             }
 
@@ -120,66 +126,150 @@ class LinkyReader
         return $values;
     }
 
-    private function createDataFromValues(array $values): ?LinkyData
+    private function createDataFromValues(array $values): EnergyData
     {
-        $data = new LinkyData();
+        $offPeakValues = ['HC'];
 
-        $this->prepareDataHeader($values, $data);
+        $data = new EnergyData();
+        $data
+            ->setPushNbTry(0)
+            ->setPushStatus($data::PUSH_STATUS_WAITING)
+            ->setPushLastError(null)
+            ->setTime(time())
+            ->setPricingOption((string) ($values['OPTARIF'] ?? ''))
+            ->setSubscribedIntensity((int) ($values['ISOUSC'] ?? 0))
+            ->setTimeGroup((string) ($values['HHPHC'] ?? ''))
+            ->setStateWord((string) ($values['MOTDETAT'] ?? ''))
+            ->setApparentPower((int) ($values['PAPP'] ?? 0))
+            ->setOffPeakHour(in_array((string) ($values['PTEC'] ?? ''), $offPeakValues))
+        ;
+
+        $this->prepareDataInstantaneousIntensity($values, $data);
+        $this->prepareDataMaxIntensity($values, $data);
         $this->prepareDataConsumption($data, $values);
-
-        if (!$data->getLinkyIdentifier()) {
-            $this->output->write('Data is invalid');
-            $this->output->write(print_r($values, true));
-            return null;
-        }
 
         return $data;
     }
 
-    public function prepareDataHeader(array $values, LinkyData $data): void
+    /**
+     * @param array $values
+     * @param EnergyData $data
+     * @return void
+     */
+    public function prepareDataInstantaneousIntensity(array $values, EnergyData $data): void
     {
-        if (array_key_exists('ADCO', $values)) {
-            $data->setLinkyIdentifier((string)$values['ADCO']);
+        if (
+            array_key_exists('IINST1', $values)
+            && array_key_exists('IINST2', $values)
+            && array_key_exists('IINST3', $values)
+        ) {
+            $data->setInstantaneousIntensity((int)$values['IINST1'] + (int)$values['IINST2'] + (int)$values['IINST3']);
+            $data->setInstantaneousIntensity1((int)$values['IINST1']);
+            $data->setInstantaneousIntensity2((int)$values['IINST2']);
+            $data->setInstantaneousIntensity3((int)$values['IINST3']);
+            return;
         }
-        if (array_key_exists('OPTARIF', $values)) {
-            $data->setPricingOption((string)$values['OPTARIF']);
-        }
-        if (array_key_exists('ISOUSC', $values)) {
-            $data->setSubscribedIntensity((int)$values['ISOUSC']);
-        }
-        if (array_key_exists('HHPHC', $values)) {
-            $data->setTimeGroup((string)$values['HHPHC']);
-        }
-        if (array_key_exists('MOTDETAT', $values)) {
-            $data->setStateWord((string)$values['MOTDETAT']);
-        }
-    }
 
-    public function prepareDataConsumption(LinkyData $data, array $values): void
-    {
-        if (array_key_exists('PTEC', $values)) {
-            $data->setOffPeakHour($values['PTEC'] == 'HC');
-        }
         if (array_key_exists('IINST', $values)) {
             $data->setInstantaneousIntensity((int)$values['IINST']);
-        }
-        if (array_key_exists('IMAX', $values)) {
-            $data->setMaxIntensity((int)$values['IMAX']);
-        }
-        if (array_key_exists('PAPP', $values)) {
-            $data->setApparentPower((int)$values['PAPP']);
+            $data->setInstantaneousIntensity1(null);
+            $data->setInstantaneousIntensity2(null);
+            $data->setInstantaneousIntensity3(null);
+            return;
         }
 
-        $data->setConsumptionOffPeakHour(0);
-        $data->setConsumptionPeakHour(0);
-        if (array_key_exists('HCHC', $values)) {
-            $data->setConsumptionOffPeakHour((int)$values['HCHC']);
+        $data->setInstantaneousIntensity(0);
+        $data->setInstantaneousIntensity1(null);
+        $data->setInstantaneousIntensity2(null);
+        $data->setInstantaneousIntensity3(null);
+    }
+    /**
+     * @param array $values
+     * @param EnergyData $data
+     * @return void
+     */
+    public function prepareDataMaxIntensity(array $values, EnergyData $data): void
+    {
+        if (
+            array_key_exists('IMAX1', $values)
+            && array_key_exists('IMAX2', $values)
+            && array_key_exists('IMAX3', $values)
+        ) {
+            $data->setMaxIntensity((int)$values['IMAX1'] + (int)$values['IMAX2'] + (int)$values['IMAX3']);
+            $data->setMaxIntensity1((int)$values['IMAX1']);
+            $data->setMaxIntensity2((int)$values['IMAX2']);
+            $data->setMaxIntensity3((int)$values['IMAX3']);
+            return;
         }
-        if (array_key_exists('HCHP', $values)) {
-            $data->setConsumptionPeakHour((int)$values['HCHP']);
+
+        if (array_key_exists('IMAX', $values)) {
+            $data->setMaxIntensity((int)$values['IMAX']);
+            $data->setMaxIntensity1(null);
+            $data->setMaxIntensity2(null);
+            $data->setMaxIntensity3(null);
+            return;
         }
+
+        $data->setMaxIntensity(0);
+        $data->setMaxIntensity1(null);
+        $data->setMaxIntensity2(null);
+        $data->setMaxIntensity3(null);
+    }
+
+    /**
+     * @param EnergyData $data
+     * @param array $values
+     * @return void
+     * @SuppressWarnings(PMD.CyclomaticComplexity)
+     */
+    public function prepareDataConsumption(EnergyData $data, array $values): void
+    {
+        // Index option Base.
         if (array_key_exists('BASE', $values)) {
-            $data->setConsumptionPeakHour((int)$values['BASE']);
+            $data->setConsumptionPeakHour((int) $values['BASE']);
+            $data->setConsumptionOffPeakHour(0);
+            return;
         }
+
+        // Index option Heures Creuses.
+        if (
+            array_key_exists('HCHC', $values)
+            && array_key_exists('HCHP', $values)
+        ) {
+            $data->setConsumptionOffPeakHour((int) $values['HCHC']);
+            $data->setConsumptionPeakHour((int) $values['HCHP']);
+            return;
+        }
+
+        // Index option EJP.
+        if (
+            array_key_exists('EJPHN', $values)
+            && array_key_exists('EJPHPM', $values)
+        ) {
+            $data->setConsumptionOffPeakHour((int) $values['EJPHN']);
+            $data->setConsumptionPeakHour((int) $values['EJPHPM']);
+            return;
+        }
+
+        // Index option Tempo.
+        if (
+            array_key_exists('BBRHCJB', $values)
+            && array_key_exists('BBRHPJB', $values)
+            && array_key_exists('BBRHCJW', $values)
+            && array_key_exists('BBRHPJW', $values)
+            && array_key_exists('BBRHCJR', $values)
+            && array_key_exists('BBRHPJR', $values)
+        ) {
+            $data->setConsumptionOffPeakHour(
+                (int) $values['BBRHCJB'] + (int) $values['BBRHCJW'] + (int) $values['BBRHCJR']
+            );
+            $data->setConsumptionPeakHour(
+                (int) $values['BBRHPJB'] + (int) $values['BBRHPJW'] + (int) $values['BBRHPJR']
+            );
+            return;
+        }
+
+        $data->setConsumptionPeakHour(0);
+        $data->setConsumptionOffPeakHour(0);
     }
 }

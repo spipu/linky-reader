@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Service\LinkyReader;
 
-use App\Entity\LinkyData;
+use App\Entity\EnergyData;
 use App\Service\LinkyReader\Push\PushInterface;
 
 class PushService
@@ -29,13 +29,13 @@ class PushService
         $this->services[] = $service;
     }
 
-    public function push(LinkyData $linkyData): void
+    public function push(EnergyData $energyData): void
     {
         $this->output->write('Push - BEGIN');
 
         foreach ($this->services as $service) {
             $this->output->write('Push to [' . $service->getCode() . ']');
-            $service->push($linkyData, $this->output);
+            $service->push($energyData, $this->output);
         }
 
         $this->output->write('Push - END');
