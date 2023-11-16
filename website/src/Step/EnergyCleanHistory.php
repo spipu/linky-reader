@@ -37,9 +37,11 @@ class EnergyCleanHistory implements StepInterface
 
         $limitTime = time() - $nbDays * 24 * 3600;
         $limitDate = date('Y-m-d 00:00:00', $limitTime);
+
+        $logger->debug(sprintf('Limit time: %d', $limitTime));
         $logger->debug(sprintf('Limit date: %s', $limitDate));
 
-        $query = sprintf("DELETE FROM `energy_data` WHERE `time` < %d", $limitDate);
+        $query = sprintf("DELETE FROM `energy_data` WHERE `time` < %d", $limitTime);
         $logger->debug($query);
 
         $this->entityManager->getConnection()->executeQuery($query);
