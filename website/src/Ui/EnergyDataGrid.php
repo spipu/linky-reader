@@ -30,68 +30,75 @@ class EnergyDataGrid implements GridDefinitionInterface
 
     private function prepareGrid(): void
     {
+        $prefixTrans = 'app.entity.energy_data.field.';
+
         $this->definition = (new Grid\Grid('energy_data', 'App:EnergyData'))
             ->setPersonalize(true)
             ->setPager(
                 (new Grid\Pager([20, 50, 100, 200, 1440], 20))
             )
             ->addColumn(
-                (new Grid\Column('id', 'app.entity.energy_data.field.id', 'id', 10))
+                (new Grid\Column('id', $prefixTrans . 'id', 'id', 10))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center'])
             )
             ->addColumn(
-                (new Grid\Column('time', 'app.entity.energy_data.field.time', 'time', 20))
+                (new Grid\Column('time', $prefixTrans . 'time', 'time', 20))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center'])
             )
             ->addColumn(
-                (new Grid\Column('createdAt', 'app.entity.energy_data.field.created_at', 'createdAt', 25))
+                (new Grid\Column('createdAt', $prefixTrans . 'created_at', 'createdAt', 25))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_DATETIME)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
             )
             ->addColumn(
-                (new Grid\Column('consumptionTotal', 'app.entity.energy_data.field.consumption_total', 'consumptionTotal', 30))
+                (new Grid\Column('consumptionTotal', $prefixTrans . 'consumption_total', 'consumptionTotal', 30))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(false)))
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' Wh'])
             )
             ->addColumn(
-                (new Grid\Column('consumptionDelta', 'app.entity.energy_data.field.consumption_delta', 'consumptionDelta', 40))
+                (new Grid\Column('consumptionDelta', $prefixTrans . 'consumption_delta', 'consumptionDelta', 40))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' Wh'])
             )
             ->addColumn(
-                (new Grid\Column('instantaneousIntensity', 'app.entity.energy_data.field.instantaneous_intensity', 'instantaneousIntensity', 50))
+                (new Grid\Column(
+                    'instantaneousIntensity',
+                    $prefixTrans . 'instantaneous_intensity',
+                    'instantaneousIntensity',
+                    50
+                ))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' A'])
             )
             ->addColumn(
-                (new Grid\Column('apparentPower', 'app.entity.energy_data.field.apparent_power', 'apparentPower', 60))
+                (new Grid\Column('apparentPower', $prefixTrans . 'apparent_power', 'apparentPower', 60))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' A'])
             )
             ->addColumn(
-                (new Grid\Column('pushNbTry', 'app.entity.energy_data.field.push_nb_try', 'pushNbTry', 70))
+                (new Grid\Column('pushNbTry', $prefixTrans . 'push_nb_try', 'pushNbTry', 70))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
                     ->setOptions(['td-css-class' => 'text-left'])
             )
             ->addColumn(
-                (new Grid\Column('pushStatus', 'app.entity.energy_data.field.push_status', 'pushStatus', 80))
+                (new Grid\Column('pushStatus', $prefixTrans . 'push_status', 'pushStatus', 80))
                     ->setType(
                         (new Grid\ColumnType(Grid\ColumnType::TYPE_SELECT))
                             ->setOptions($this->pushStatusOptions)

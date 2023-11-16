@@ -11,6 +11,7 @@ use Spipu\UiBundle\Entity\TimestampableTrait;
 
 /**
  * @SuppressWarnings(PMD.TooManyFields)
+ * @SuppressWarnings(PMD.ExcessivePublicCount)
  */
 #[ORM\Entity(repositoryClass: EnergyDataRepository::class)]
 #[ORM\Table(name: "energy_data")]
