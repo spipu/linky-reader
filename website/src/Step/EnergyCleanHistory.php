@@ -30,12 +30,11 @@ class EnergyCleanHistory implements StepInterface
     public function execute(ParametersInterface $parameters, LoggerInterface $logger): bool
     {
         $nbDays = (int) $parameters->get('nb_days');
-        $logger->debug(
-            sprintf(
-                'Keep %d day(s)',
-                $nbDays
-            )
-        );
+
+        $limitDate = date('Y-m-d H:i:s', time() - $nbDays * 24 * 3600);
+
+        $logger->debug(sprintf('Keep %d day(s)', $nbDays));
+        $logger->debug(sprintf('Limit date: %s', $limitDate));
 
         return true;
     }

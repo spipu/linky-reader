@@ -4,6 +4,6 @@
 *    * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron-linky.log 2>&1
 
 # Spipu Process
-#0    2 * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager cleanup   >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1
-#*/5  * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager rerun     >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1
-#*/10 * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager check-pid >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1
+0    2 * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager cleanup   > /var/www/linky-reader/website/var/log/cron-process-cleanup.log   2>&1
+*/5  * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager rerun     > /var/www/linky-reader/website/var/log/cron-process-rerun.log     2>&1
+*/10 * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager check-pid > /var/www/linky-reader/website/var/log/cron-process-check-pid.log 2>&1
