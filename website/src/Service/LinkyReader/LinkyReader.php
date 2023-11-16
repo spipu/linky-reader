@@ -149,6 +149,7 @@ class LinkyReader
         $this->prepareDataConsumption($data, $values);
 
         $data->setConsumptionTotal($data->getConsumptionPeakHour() + $data->getConsumptionOffPeakHour());
+        $data->setConsumptionDelta(0);
 
         return $data;
     }
