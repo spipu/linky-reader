@@ -35,8 +35,8 @@ class EnergyCleanHistory implements StepInterface
         }
         $logger->debug(sprintf('Keep %d day(s)', $nbDays));
 
-        $limitTime = time() - $nbDays * 24 * 3600;
-        $limitDate = date('Y-m-d 00:00:00', $limitTime);
+        $limitTime = ((int) (time() / (24 * 3600)) - $nbDays) * 24 * 3600;
+        $limitDate = date('Y-m-d H:i:s', $limitTime);
 
         $logger->debug(sprintf('Limit time: %d', $limitTime));
         $logger->debug(sprintf('Limit date: %s', $limitDate));
