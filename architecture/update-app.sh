@@ -58,5 +58,11 @@ echo ""
 sudo -u www-data ./bin/console spipu:fixtures:load
 
 echo ""
+echo "==[CRONTAB]=="
+echo ""
+
+sudo -u www-data crontab "$FOLDER/website/config/crontab"
+
+echo ""
 echo "==[FINISHED]=="
 echo ""

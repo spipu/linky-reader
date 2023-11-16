@@ -1,17 +1,9 @@
 # www-data crontab file
-#--------------------------------------------------
-# min,hour,dayOfMonth,month,dayOfWeek command
-#
-# field          allowed values
-# -----          --------------
-# minute         0-59
-# hour           0-23
-# day of month   1-31
-# month          1-12
-# day of week    0-7 (0 or 7 is Sunday)
-#
-#--------------------------------------------------
 
-# Clean the old tasks and old logs
+# Linky Reader
+*    * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron-linky.log 2>&1
 
-* * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron.log 2>&1
+# Spipu Process
+0    2 * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager cleanup   >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1
+*/5  * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager rerun     >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1
+*/10 * * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager check-pid >> /var/www/linky-reader/website/var/log/cron-process.log 2>&1

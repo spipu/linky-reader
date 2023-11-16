@@ -144,6 +144,18 @@
     "psr/log": {
         "version": "1.1.2"
     },
+    "sensio/framework-extra-bundle": {
+        "version": "6.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "config/packages/sensio_framework_extra.yaml"
+        ]
+    },
     "sensiolabs/security-checker": {
         "version": "4.0",
         "recipe": {
@@ -161,6 +173,9 @@
     },
     "spipu/core-bundle": {
         "version": "dev-master"
+    },
+    "spipu/process-bundle": {
+        "version": "v3.0.5"
     },
     "spipu/ui-bundle": {
         "version": "dev-master"

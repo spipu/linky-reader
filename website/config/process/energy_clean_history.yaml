@@ -1,0 +1,13 @@
+spipu_process:
+    energy_clean_history:
+        name: "Energy - Clean history"
+
+        options:
+            can_be_put_in_queue: true
+            can_be_rerun_automatically: false
+
+        steps:
+            clean_history:
+                class: App\Step\EnergyCleanHistory
+                parameters:
+                    nb_days: '{{ configuration(linky.history.keep) }}'

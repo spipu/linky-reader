@@ -1,11 +1,18 @@
 imports:
-- { resource: "@SpipuConfigurationBundle/Resources/config/spipu_configuration.yaml" }
+    - { resource: "@SpipuConfigurationBundle/Resources/config/spipu_configuration.yaml" }
+    - { resource: "@SpipuProcessBundle/Resources/config/spipu_configuration.yaml" }
 
 spipu_configuration:
     app.website.name:
         type:     string
         required: true
         default:  "Linky Reader"
+
+    linky.history.keep:
+        type:     integer
+        required: true
+        default:  "365"
+        unit:     "day(s)"
 
     linky.server-push.enable:
         type:     select

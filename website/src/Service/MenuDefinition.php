@@ -44,6 +44,20 @@ class MenuDefinition implements DefinitionInterface
                 )
                     ->setACL(true, 'ROLE_ADMIN_MANAGE_CONFIGURATION_SHOW')
                     ->getParentItem()
+                ->addChild(
+                    'spipu.process.page.admin.task.list',
+                    'spipu-process-admin-task',
+                    'spipu_process_admin_task_list'
+                )
+                    ->setACL(true, 'ROLE_ADMIN_MANAGE_PROCESS_SHOW')
+                    ->getParentItem()
+                ->addChild(
+                    'spipu.process.page.admin.log.list',
+                    'spipu-process-admin-log',
+                    'spipu_process_admin_log_list'
+                )
+                    ->setACL(true, 'ROLE_ADMIN_MANAGE_PROCESS_SHOW')
+                    ->getParentItem()
                 ->addChild('spipu.user.page.admin.list', 'spipu-user-admin', 'spipu_user_admin_list')
                     ->setAcl(true, 'ROLE_ADMIN_MANAGE_USER_SHOW')
                     ->getParentItem()

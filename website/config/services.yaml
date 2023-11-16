@@ -42,3 +42,10 @@ services:
             $entityClassName: '\App\Entity\User'
             $allowAccountCreation: false
             $allowPasswordRecovery: true
+
+    # Process Steps
+    App\Step\:
+        resource: '../src/Step/*'
+        tags: ['spipu.process.step']
+        public: true
+        autowire: true

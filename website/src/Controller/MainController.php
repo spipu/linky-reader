@@ -20,7 +20,7 @@ class MainController extends AbstractController
     #[Route(path: '/', name: 'app_home', methods: 'get')]
     public function home(): Response
     {
-        $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron.log';
+        $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron-linky.log';
         $content = sprintf('Log File [%s] is missing', $filename);
         if (is_file($filename)) {
             $content = file_get_contents($filename);

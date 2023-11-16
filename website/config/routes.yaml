@@ -3,3 +3,6 @@ spipu_user:
 
 spipu_configuration:
   resource: '@SpipuConfigurationBundle/Resources/config/routes.yaml'
+
+spipu_process:
+  resource: '@SpipuProcessBundle/Resources/config/routes.yaml'
