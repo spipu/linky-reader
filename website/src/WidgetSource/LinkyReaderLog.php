@@ -26,7 +26,7 @@ class LinkyReaderLog extends AbstractSource
 
     private function getLogContent(): string
     {
-        $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron-linky.log';
+        $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron-linky-reader.log';
         $content = sprintf('Log File [%s] is missing', $filename);
         if (is_file($filename)) {
             $content = file_get_contents($filename);
