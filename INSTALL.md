@@ -343,12 +343,7 @@ sudo -u www-data /var/www/linky-reader/website/bin/console app:linky:read
 If all is working fine, you can add it to the crontab of the `www-data` user.
 
 ```bash
-sudo -u www-data crontab -e
-```
-
-```cronexp
-# m h  dom mon dow   command
-* * * * * /var/www/linky-reader/website/bin/console app:linky:read > /var/www/linky-reader/website/var/log/cron.log
+sudo -u www-data crontab /var/www/linky-reader/website/config/crontab
 ```
 
 After one minute, you will see the log file in the web interface.
@@ -357,4 +352,4 @@ That's all!
 
 ## Push to a server
 
-You can push the data to an external server, 
+You can push the data to an external server, you have just to configure it in the admin panel.
