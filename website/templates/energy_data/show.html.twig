@@ -11,5 +11,157 @@
     {{ buttons.back(path('energy_data_list')) }}
 {% endblock %}
 
-{% block body %}@todo{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.header'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.field.id'|trans   }}</th>
+                        <td>{{ resource.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.created_at'|trans }}</th>
+                        <td>{{ resource.createdAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.updated_at'|trans }}</th>
+                        <td>{{ resource.updatedAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.time'|trans   }}</th>
+                        <td>{{ resource.time }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.time_group'|trans   }}</th>
+                        <td>{{ resource.timeGroup }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.state_word'|trans   }}</th>
+                        <td>{{ resource.stateWord }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.plan'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.field.pricing_option'|trans   }}</th>
+                        <td>{{ resource.pricingOption }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.subscribed_intensity'|trans   }}</th>
+                        <td>{{ resource.subscribedIntensity }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.off_peak_hour'|trans   }}</th>
+                        <td>
+                            {% if resource.offPeakHour %}
+                                {{ 'spipu.ui.options.value_yes'|trans }}
+                            {% else %}
+                                {{ 'spipu.ui.options.value_no'|trans }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.apparent_power'|trans   }}</th>
+                        <td>{{ resource.apparentPower }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.push'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.field.push_status'|trans   }}</th>
+                        <td>{{ resource.pushStatus }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.push_nb_try'|trans   }}</th>
+                        <td>{{ resource.pushNbTry }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.field.push_last_error'|trans   }}</th>
+                        <td>{{ resource.pushLastError }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.consumption'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.show.consumption_off_peak_hour'|trans   }}</th>
+                        <td>{{ resource.consumptionOffPeakHour }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.consumption_peak_hour'|trans   }}</th>
+                        <td>{{ resource.consumptionPeakHour }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.consumption_total'|trans   }}</th>
+                        <td>{{ resource.consumptionTotal }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.consumption_delta'|trans   }}</th>
+                        <td>{{ resource.consumptionDelta }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.field.instantaneous_intensity'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.show.global'|trans }}</th>
+                        <td>{{ resource.instantaneousIntensity }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_1'|trans }}</th>
+                        <td>{{ resource.instantaneousIntensity1 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_2'|trans }}</th>
+                        <td>{{ resource.instantaneousIntensity2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_3'|trans }}</th>
+                        <td>{{ resource.instantaneousIntensity3 }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card mb-3">
+                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.field.max_intensity'|trans }}</div>
+                <table class="table table-striped table-hover table-sm mb-0">
+                    <tr>
+                        <th class="w-50">{{ 'app.entity.energy_data.show.global'|trans }}</th>
+                        <td>{{ resource.maxIntensity }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_1'|trans }}</th>
+                        <td>{{ resource.maxIntensity1 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_2'|trans }}</th>
+                        <td>{{ resource.maxIntensity2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'app.entity.energy_data.show.phase_3'|trans }}</th>
+                        <td>{{ resource.maxIntensity3 }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
