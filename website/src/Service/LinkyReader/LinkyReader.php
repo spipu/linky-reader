@@ -128,12 +128,14 @@ class LinkyReader
     {
         $offPeakValues = ['HC'];
 
+        $roundTime = ((int) (time() / 60)) * 60;
+
         $data = new EnergyData();
         $data
             ->setPushNbTry(0)
             ->setPushStatus($data::PUSH_STATUS_WAITING)
             ->setPushLastError(null)
-            ->setTime(time())
+            ->setTime($roundTime)
             ->setPricingOption((string) ($values['OPTARIF'] ?? ''))
             ->setSubscribedIntensity((int) ($values['ISOUSC'] ?? 0))
             ->setTimeGroup((string) ($values['HHPHC'] ?? ''))

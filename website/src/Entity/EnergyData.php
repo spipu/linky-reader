@@ -13,6 +13,8 @@ use Spipu\UiBundle\Entity\TimestampableTrait;
  * @SuppressWarnings(PMD.TooManyFields)
  */
 #[ORM\Entity(repositoryClass: EnergyDataRepository::class)]
+#[ORM\Table(name: "energy_data")]
+#[ORM\UniqueConstraint(name: "ENERGY_DATA_UNIQ_TIME", columns: ["time"])]
 #[ORM\HasLifecycleCallbacks]
 class EnergyData implements EntityInterface
 {
