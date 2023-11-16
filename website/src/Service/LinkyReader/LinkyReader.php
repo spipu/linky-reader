@@ -148,6 +148,8 @@ class LinkyReader
         $this->prepareDataMaxIntensity($values, $data);
         $this->prepareDataConsumption($data, $values);
 
+        $data->setConsumptionTotal($data->getConsumptionPeakHour() + $data->getConsumptionOffPeakHour());
+
         return $data;
     }
 

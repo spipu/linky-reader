@@ -48,7 +48,37 @@ class EnergyDataGrid implements GridDefinitionInterface
                     ->useSortable()
             )
             ->addColumn(
-                (new Grid\Column('pushStatus', 'app.entity.energy_data.field.push_status', 'pushStatus', 30))
+                (new Grid\Column('consumptionTotal', 'app.entity.energy_data.field.consumption_total', 'consumptionTotal', 30))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
+                    ->setFilter((new Grid\ColumnFilter(false)))
+                    ->useSortable()
+            )
+            ->addColumn(
+                (new Grid\Column('consumptionDelta', 'app.entity.energy_data.field.consumption_delta', 'consumptionDelta', 40))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
+                    ->setFilter((new Grid\ColumnFilter(true))->useRange())
+                    ->useSortable()
+            )
+            ->addColumn(
+                (new Grid\Column('instantaneousIntensity', 'app.entity.energy_data.field.instantaneous_intensity', 'instantaneousIntensity', 50))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
+                    ->setFilter((new Grid\ColumnFilter(true))->useRange())
+                    ->useSortable()
+            )
+            ->addColumn(
+                (new Grid\Column('apparentPower', 'app.entity.energy_data.field.apparent_power', 'apparentPower', 60))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
+                    ->setFilter((new Grid\ColumnFilter(true))->useRange())
+                    ->useSortable()
+            )
+            ->addColumn(
+                (new Grid\Column('pushNbTry', 'app.entity.energy_data.field.push_nb_try', 'pushNbTry', 70))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
+                    ->setFilter((new Grid\ColumnFilter(true))->useRange())
+                    ->useSortable()
+            )
+            ->addColumn(
+                (new Grid\Column('pushStatus', 'app.entity.energy_data.field.push_status', 'pushStatus', 80))
                     ->setType(
                         (new Grid\ColumnType(Grid\ColumnType::TYPE_SELECT))
                             ->setOptions($this->pushStatusOptions)

@@ -8,9 +8,30 @@ app:
     entity:
         energy_data:
             field:
-                id: "Id"
-                time: "Time"
-                push_status: "Push status"
+                id:                        "Id"
+                time:                      "Time"
+                push_status:               "Push Status"
+                push_nb_try:               "Push Nb Try"
+                push_last_error:           "Push Last Error"
+                pricing_option:            "Pricing Option"
+                subscribed_intensity:      "Subscribed Intensity"
+                time_group:                "Time Group"
+                state_word:                "State Word"
+                consumption_off_peak_hour: "Consumption Off-Peak Hour"
+                consumption_peak_hour:     "Consumption Peak Hour"
+                consumption_total:         "Consumption Total"
+                consumption_delta:         "Consumption Delta"
+                off_peak_hour:             "Off-Peak Hour"
+                instantaneous_intensity:   "Instantaneous Intensity"
+                instantaneous_intensity_1: "Instantaneous Intensity 1"
+                instantaneous_intensity_2: "Instantaneous Intensity 2"
+                instantaneous_intensity_3: "Instantaneous Intensity 3"
+                max_intensity:             "Max Intensity"
+                max_intensity_1:           "Max Intensity 1"
+                max_intensity_2:           "Max Intensity 2"
+                max_intensity_3:           "Max Intensity 3"
+                apparent_power:            "Apparent Power"
+
             status:
                 error:  "Error"
                 pushed:  "Pushed"

@@ -60,6 +60,12 @@ class EnergyData implements EntityInterface
     private ?int $consumptionPeakHour = null;
 
     #[ORM\Column]
+    private ?int $consumptionTotal = null;
+
+    #[ORM\Column]
+    private ?int $consumptionDelta = null;
+
+    #[ORM\Column]
     private ?bool $offPeakHour = null;
 
     #[ORM\Column]
@@ -210,6 +216,29 @@ class EnergyData implements EntityInterface
     public function setConsumptionPeakHour(int $consumptionPeakHour): static
     {
         $this->consumptionPeakHour = $consumptionPeakHour;
+
+        return $this;
+    }
+
+    public function getConsumptionTotal(): ?int
+    {
+        return $this->consumptionTotal;
+    }
+
+    public function setConsumptionTotal(int $consumptionTotal): static
+    {
+        $this->consumptionTotal = $consumptionTotal;
+
+        return $this;
+    }
+    public function getConsumptionDelta(): ?int
+    {
+        return $this->consumptionDelta;
+    }
+
+    public function setConsumptionDelta(int $consumptionDelta): static
+    {
+        $this->consumptionDelta = $consumptionDelta;
 
         return $this;
     }
