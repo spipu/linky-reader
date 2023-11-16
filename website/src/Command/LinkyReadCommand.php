@@ -70,6 +70,14 @@ class LinkyReadCommand extends Command
         $energyData = $this->linkyReader->read();
 
         if ($energyData !== null) {
+            $previousEnergyData = $this->energyDataRepository->findOneBy([], ['time' => 'DESC']);
+            if ($previousEnergyData) {
+                $delta = $energyData->getConsumptionTotal() - $previousEnergyData->getConsumptionTotal();
+                if ($delta > 0) {
+                    $energyData->setConsumptionDelta($delta);
+                }
+            }
+
             $this->entityManager->persist($energyData);
             $this->entityManager->flush();
             $output->writeln(print_r($energyData->getDataToDisplay(), true));
