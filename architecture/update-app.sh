@@ -3,6 +3,13 @@
 FOLDER="/var/www/linky-reader"
 
 echo ""
+echo "==[STOP APP]=="
+echo ""
+
+sudo -u www-data crontab -r
+sudo systemctl stop apache2
+
+echo ""
 echo "==[UPDATE FROM GIT]=="
 echo ""
 
@@ -61,7 +68,12 @@ echo ""
 echo "==[CRONTAB]=="
 echo ""
 
+echo ""
+echo "==[START APP]=="
+echo ""
+
 sudo -u www-data crontab "$FOLDER/website/config/crontab"
+sudo systemctl start apache2
 
 echo ""
 echo "==[FINISHED]=="
