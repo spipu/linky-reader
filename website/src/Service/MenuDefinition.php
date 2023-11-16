@@ -1,14 +1,5 @@
 <?php
 
-/**
- * This file is a demo file for Spipu Bundles
- *
- * (c) Laurent Minguet
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 declare(strict_types=1);
 
 namespace App\Service;
@@ -34,7 +25,10 @@ class MenuDefinition implements DefinitionInterface
         $this->mainItem
             ->setIcon('bolt', 'danger')
             ->setCssClass('navbar-dark bg-danger')
-            ->addChild('spipu.ui.page.home', 'home', 'app_home')
+            ->addChild('app.page.home.title', 'home', 'app_home')
+                ->getParentItem()
+            ->addChild('app.page.energy_data.title', 'energy-data', 'energy_data_list')
+                ->setACL(true, 'ROLE_ADMIN')
                 ->getParentItem()
             ->addChild('spipu.ui.page.admin')
                 ->addChild(

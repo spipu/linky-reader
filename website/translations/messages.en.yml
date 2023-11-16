@@ -1,0 +1,17 @@
+app:
+    page:
+        home:
+            title: "Home"
+        energy_data:
+            title: "Energy Data"
+
+    entity:
+        energy_data:
+            field:
+                id: "Id"
+                time: "Time"
+                push_status: "Push status"
+            status:
+                error:  "Error"
+                pushed:  "Pushed"
+                waiting: "Waiting"

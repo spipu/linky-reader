@@ -2,9 +2,9 @@
 
 {% set menuCurrentItem="home" %}
 
-{% block header_title %}{{  parent() }} - Home{% endblock %}
+{% block header_title %}{{  parent() }} - {{ 'app.page.home.title'|trans }}{% endblock %}
 
-{% block main_title %}Linky Reader{% endblock %}
+{% block main_title %}{{ 'app.page.home.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
