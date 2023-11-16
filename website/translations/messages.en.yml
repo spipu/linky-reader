@@ -4,6 +4,7 @@ app:
             title: "Home"
         energy_data:
             title: "Energy Data"
+            show: "Show #%id"
 
     entity:
         energy_data:

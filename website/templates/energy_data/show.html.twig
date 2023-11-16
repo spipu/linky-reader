@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% set menuCurrentItem="energy-data" %}
+
+{% block header_title %}{{ parent() }} - {{ 'app.page.energy_data.title'|trans }} - {{ 'app.page.energy_data.show'|trans({'%id': resource}) }}{% endblock %}
+
+{% block main_title %}{{ 'app.page.energy_data.show'|trans({'%id': resource}) }}{% endblock %}
+
+{% block main_actions %}
+    {{ buttons.back(path('energy_data_list')) }}
+{% endblock %}
+
+{% block body %}@todo{% endblock %}
+

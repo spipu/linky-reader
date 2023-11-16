@@ -107,6 +107,11 @@ class EnergyDataGrid implements GridDefinitionInterface
                     ->useSortable()
             )
             ->setDefaultSort('id', 'desc')
+            ->addRowAction(
+                (new Grid\Action('show', 'spipu.ui.action.show', 10, 'energy_data_show'))
+                    ->setCssClass('primary')
+                    ->setIcon('eye')
+            )
         ;
     }
 }
