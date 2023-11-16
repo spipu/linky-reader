@@ -30,7 +30,7 @@ class EnergyDataController extends AbstractController
 
     #[Route(path: '/show/{id}', name: 'energy_data_show', methods: 'GET')]
     public function show(
-        EnergyDataRepository  $energyDataRepository,
+        EnergyDataRepository $energyDataRepository,
         int $id
     ): Response {
         $resource = $energyDataRepository->findOneBy(['id' => $id]);
