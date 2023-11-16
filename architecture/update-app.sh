@@ -59,6 +59,13 @@ sudo -u www-data rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
 set -e
 
 echo ""
+echo "==[CLEAN CACHE]=="
+echo ""
+
+sudo -u www-data ./bin/console spipu:configuration:clear-cache
+sudo -u www-data ./bin/console spipu:ui:grid-config:reset
+
+echo ""
 echo "==[FIXTURES]=="
 echo ""
 
