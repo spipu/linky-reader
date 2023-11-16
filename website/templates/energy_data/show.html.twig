@@ -126,15 +126,15 @@
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_1'|trans }}</th>
-                        <td>{{ resource.instantaneousIntensity1 }} A</td>
+                        <td>{% if resource.instantaneousIntensity1 %}{{ resource.instantaneousIntensity1 }} A{% else %} - {% endif %}</td>
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_2'|trans }}</th>
-                        <td>{{ resource.instantaneousIntensity2 }} A</td>
+                        <td>{% if resource.instantaneousIntensity2 %}{{ resource.instantaneousIntensity2 }} A{% else %} - {% endif %}</td>
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_3'|trans }}</th>
-                        <td>{{ resource.instantaneousIntensity3 }} A</td>
+                        <td>{% if resource.instantaneousIntensity3 %}{{ resource.instantaneousIntensity3 }} A{% else %} - {% endif %}</td>
                     </tr>
                 </table>
             </div>
@@ -149,15 +149,15 @@
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_1'|trans }}</th>
-                        <td>{{ resource.maxIntensity1 }} A</td>
+                        <td>{% if resource.maxIntensity1 %}{{ resource.maxIntensity1 }} A{% else %} - {% endif %}</td>
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_2'|trans }}</th>
-                        <td>{{ resource.maxIntensity2 }} A</td>
+                        <td>{% if resource.maxIntensity2 %}{{ resource.maxIntensity2 }} A{% else %} - {% endif %}</td>
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.show.phase_3'|trans }}</th>
-                        <td>{{ resource.maxIntensity3 }} A</td>
+                        <td>{% if resource.maxIntensity3 %}{{ resource.maxIntensity3 }} A{% else %} - {% endif %}</td>
                     </tr>
                 </table>
             </div>
