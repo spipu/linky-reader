@@ -13,6 +13,7 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Spipu\CoreBundle\SpipuCoreBundle::class => ['all' => true],
     Spipu\ConfigurationBundle\SpipuConfigurationBundle::class => ['all' => true],
+    Spipu\DashboardBundle\SpipuDashboardBundle::class => ['all' => true],
     Spipu\ProcessBundle\SpipuProcessBundle::class => ['all' => true],
     Spipu\UiBundle\SpipuUiBundle::class => ['all' => true],
     Spipu\UserBundle\SpipuUserBundle::class => ['all' => true],

@@ -10,27 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    private string $logsDir;
-
-    public function __construct(string $logsDir)
+    #[Route(path: '/', name: 'app_main')]
+    public function main(): Response
     {
-        $this->logsDir = $logsDir;
-    }
-
-    #[Route(path: '/', name: 'app_home', methods: 'get')]
-    public function home(): Response
-    {
-        $filename = $this->logsDir . DIRECTORY_SEPARATOR . 'cron-linky.log';
-        $content = sprintf('Log File [%s] is missing', $filename);
-        if (is_file($filename)) {
-            $content = file_get_contents($filename);
-        }
-
-        return $this->render(
-            'main/home.html.twig',
-            [
-                'content' => $content,
-            ]
-        );
+        return $this->redirectToRoute('app_home');
     }
 }

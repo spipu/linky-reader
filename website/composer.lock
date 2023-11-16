@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d3f3155bfb3d3a1210276a7aded18fd",
+    "content-hash": "64662ea0c46dd7c58d270dbc248196c9",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2349,6 +2349,53 @@
                 "source": "https://github.com/spipu/symfony-bundle-core/tree/v3.0.2"
             },
             "time": "2023-07-12T10:25:10+00:00"
+        },
+        {
+            "name": "spipu/dashboard-bundle",
+            "version": "v3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spipu/symfony-bundle-dashboard.git",
+                "reference": "745f1b2bf33664018d65ab9ff593ae73d4c8e9e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-dashboard/zipball/745f1b2bf33664018d65ab9ff593ae73d4c8e9e4",
+                "reference": "745f1b2bf33664018d65ab9ff593ae73d4c8e9e4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": "^8.1",
+                "spipu/ui-bundle": "^3.0",
+                "symfony/framework-bundle": "^5.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Spipu\\DashboardBundle\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "laurent Minguet",
+                    "email": "contact@minguet.fr"
+                },
+                {
+                    "name": "Charles Sannier",
+                    "email": "charlessannier@gmail.com"
+                }
+            ],
+            "description": "Spipu Dashboard Bundle",
+            "support": {
+                "issues": "https://github.com/spipu/symfony-bundle-dashboard/issues",
+                "source": "https://github.com/spipu/symfony-bundle-dashboard/tree/v3.0.2"
+            },
+            "time": "2023-11-11T23:10:05+00:00"
         },
         {
             "name": "spipu/process-bundle",

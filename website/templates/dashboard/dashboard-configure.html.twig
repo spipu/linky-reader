@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% import '@SpipuUi/macro/buttons.html.twig' as buttons %}
+
+{% set menuCurrentItem="home" %}
+
+{% block header_title %}{{ 'spipu.dashboard.configure.title'|trans() }}{% endblock %}
+
+{% block main_class %}container-fluid{% endblock %}
+
+{% block stylesheets %}{{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/spipudashboard/css/dashboard.css') }}" >
+{% endblock %}
+
+{% block body %}
+    {% include definition.templateConfigureAll %}
+{% endblock body %}
+
+{% block javascripts %}{{ parent() }}
+    <script src="{{ asset('/bundles/spipudashboard/js/dashboard-configure.js') }}"></script>
+    {% include definition.templateConfigureJs %}
+{% endblock javascripts %}

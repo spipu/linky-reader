@@ -55,3 +55,9 @@ app:
                 error:  "Error"
                 pushed:  "Pushed"
                 waiting: "Waiting"
+spipu:
+    dashboard:
+        source:
+            linky-reader-log:
+                label: "Linky-Reader Log"
+                title: "Linky-Reader Log"

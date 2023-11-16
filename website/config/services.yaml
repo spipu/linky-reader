@@ -24,10 +24,6 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    App\Controller\MainController:
-        arguments:
-            $logsDir: '%kernel.logs_dir%'
-
     # App Menu Definition
     spipu.ui.service.menu_definition:
         class: 'App\Service\MenuDefinition'
@@ -49,3 +45,14 @@ services:
         tags: ['spipu.process.step']
         public: true
         autowire: true
+
+    # Dashboard Widgets
+    App\WidgetSource\:
+        resource: '../src/WidgetSource/*'
+        tags: [ 'spipu.widget.source' ]
+        autowire: true
+
+    App\WidgetSource\LinkyReaderLog:
+        tags: [ 'spipu.widget.source' ]
+        arguments:
+            $logsDir: '%kernel.logs_dir%'

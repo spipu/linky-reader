@@ -14,6 +14,7 @@
         "sensio/framework-extra-bundle": "^6.2",
         "spipu/configuration-bundle": "*",
         "spipu/core-bundle": "*",
+        "spipu/dashboard-bundle": "*",
         "spipu/process-bundle": "*",
         "spipu/ui-bundle": "*",
         "spipu/user-bundle": "*",
