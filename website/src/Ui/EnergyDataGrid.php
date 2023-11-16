@@ -50,6 +50,12 @@ class EnergyDataGrid implements GridDefinitionInterface
                     ->setOptions(['td-css-class' => 'text-center'])
             )
             ->addColumn(
+                (new Grid\Column('createdAt', 'app.entity.energy_data.field.created_at', 'createdAt', 25))
+                    ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_DATETIME)))
+                    ->setFilter((new Grid\ColumnFilter(true))->useRange())
+                    ->useSortable()
+            )
+            ->addColumn(
                 (new Grid\Column('consumptionTotal', 'app.entity.energy_data.field.consumption_total', 'consumptionTotal', 30))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(false)))
@@ -82,6 +88,7 @@ class EnergyDataGrid implements GridDefinitionInterface
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
+                    ->setOptions(['td-css-class' => 'text-left'])
             )
             ->addColumn(
                 (new Grid\Column('pushStatus', 'app.entity.energy_data.field.push_status', 'pushStatus', 80))

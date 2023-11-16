@@ -9,6 +9,8 @@ app:
         energy_data:
             field:
                 id:                        "Id"
+                created_at:                "Created At"
+                updated_at:                "Updated At"
                 time:                      "Time"
                 push_status:               "Push Status"
                 push_nb_try:               "Push Nb Try"
