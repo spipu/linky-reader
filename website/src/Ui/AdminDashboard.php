@@ -39,7 +39,7 @@ class AdminDashboard implements DashboardDefinitionInterface
                         [
                             "widgets" => [
                                 [
-                                    "source" => "linky-reader-log",
+                                    "source" => "log-linky-reader",
                                     "type" => "specific",
                                     "period" => null,
                                     "width" => 3,

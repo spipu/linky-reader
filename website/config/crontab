@@ -1,8 +1,8 @@
 # www-data crontab file
 
 # Linky Reader
-*    * * * * /var/www/linky-reader/website/bin/console app:linky:read                         > /var/www/linky-reader/website/var/log/cron-linky-reader.log 2>&1
-0    4 * * * /var/www/linky-reader/website/bin/console spipu:process:run energy_clean_history > /var/www/linky-reader/website/var/log/cron-linky-clean.log  2>&1
+*    * * * * /var/www/linky-reader/website/bin/console app:linky:read                         > /var/www/linky-reader/website/var/log/cron-linky-reader.log   2>&1
+0    4 * * * /var/www/linky-reader/website/bin/console spipu:process:run energy_clean_history > /var/www/linky-reader/website/var/log/cron-linky-cleanup.log  2>&1
 
 # Spipu Process
 0    2 * * * /var/www/linky-reader/website/bin/console spipu:process:cron-manager cleanup   > /var/www/linky-reader/website/var/log/cron-process-cleanup.log   2>&1
