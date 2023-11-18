@@ -58,6 +58,18 @@ app:
 spipu:
     dashboard:
         source:
-            linky-reader-log:
-                label: "Linky-Reader Log"
-                title: "Linky-Reader Log"
+            log-linky-reader:
+                label: "Log - Linky - Reader"
+                title: "Log - Linky - Reader"
+            log-linky-cleanup:
+                label: "Log - Linky - Cleanup"
+                title: "Log - Linky - Cleanup"
+            log-process-rerun:
+                label: "Log - Process - Reader"
+                title: "Log - Process - Reader"
+            log-process-check-pid:
+                label: "Log - Process - Check PID"
+                title: "Log - Process - Check PID"
+            log-process-cleanup:
+                label: "Log - Process - Cleanup"
+                title: "Log - Process - Cleanup"
