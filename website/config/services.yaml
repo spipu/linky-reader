@@ -11,6 +11,8 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $logsDir: '%kernel.logs_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -51,8 +53,3 @@ services:
         resource: '../src/WidgetSource/*'
         tags: [ 'spipu.widget.source' ]
         autowire: true
-
-    App\WidgetSource\LinkyReaderLog:
-        tags: [ 'spipu.widget.source' ]
-        arguments:
-            $logsDir: '%kernel.logs_dir%'
