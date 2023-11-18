@@ -65,8 +65,8 @@ spipu:
                 label: "Log - Linky - Cleanup"
                 title: "Log - Linky - Cleanup"
             log-process-rerun:
-                label: "Log - Process - Reader"
-                title: "Log - Process - Reader"
+                label: "Log - Process - Rerun"
+                title: "Log - Process - Rerun"
             log-process-check-pid:
                 label: "Log - Process - Check PID"
                 title: "Log - Process - Check PID"
