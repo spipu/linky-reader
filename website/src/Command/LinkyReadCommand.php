@@ -88,6 +88,7 @@ class LinkyReadCommand extends Command
             $this->output->write('No previous data found');
             $this->entityManager->persist($nextData);
             $this->entityManager->flush();
+            return;
         }
 
         $startTime    = $previousData->getTime();
