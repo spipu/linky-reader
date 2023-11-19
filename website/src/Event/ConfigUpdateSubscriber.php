@@ -24,6 +24,11 @@ class ConfigUpdateSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @param ConfigurationEvent $event
+     * @return void
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
     public function onUpdate(ConfigurationEvent $event): void
     {
         $value = (int) $this->configurationManager->get('linky.history.keep');

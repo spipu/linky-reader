@@ -130,11 +130,8 @@ class LinkyReader
 
         $roundTime = ((int) (time() / 60)) * 60;
 
-        $data = new EnergyData();
+        $data = $this->initNewData();
         $data
-            ->setPushNbTry(0)
-            ->setPushStatus($data::PUSH_STATUS_WAITING)
-            ->setPushLastError(null)
             ->setTime($roundTime)
             ->setPricingOption((string) ($values['OPTARIF'] ?? ''))
             ->setSubscribedIntensity((int) ($values['ISOUSC'] ?? 0))
@@ -150,6 +147,18 @@ class LinkyReader
 
         $data->setConsumptionTotal($data->getConsumptionPeakHour() + $data->getConsumptionOffPeakHour());
         $data->setConsumptionDelta(0);
+
+        return $data;
+    }
+
+    public function initNewData(): EnergyData
+    {
+        $data = new EnergyData();
+        $data
+            ->setPushNbTry(0)
+            ->setPushStatus($data::PUSH_STATUS_WAITING)
+            ->setPushLastError(null)
+        ;
 
         return $data;
     }
