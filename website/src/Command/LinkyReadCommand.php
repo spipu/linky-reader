@@ -7,6 +7,7 @@ namespace App\Command;
 use App\Entity\EnergyData;
 use App\Repository\EnergyDataRepository;
 use App\Service\LinkyReader\LinkyReader;
+use App\Service\LinkyReader\Output;
 use App\Service\LinkyReader\PushService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -19,12 +20,14 @@ class LinkyReadCommand extends Command
     private PushService $pushService;
     private EntityManagerInterface $entityManager;
     private EnergyDataRepository $energyDataRepository;
+    private Output $output;
 
     /**
      * @param LinkyReader $linkyReader
      * @param PushService $pushService
      * @param EntityManagerInterface $entityManager
      * @param EnergyDataRepository $energyDataRepository
+     * @param Output $output
      * @param string|null $name
      */
     public function __construct(
@@ -32,6 +35,7 @@ class LinkyReadCommand extends Command
         PushService $pushService,
         EntityManagerInterface $entityManager,
         EnergyDataRepository $energyDataRepository,
+        Output $output,
         ?string $name = null
     ) {
         parent::__construct($name);
@@ -40,6 +44,7 @@ class LinkyReadCommand extends Command
         $this->pushService = $pushService;
         $this->entityManager = $entityManager;
         $this->energyDataRepository = $energyDataRepository;
+        $this->output = $output;
     }
 
     protected function configure(): void
@@ -59,27 +64,27 @@ class LinkyReadCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->readLinky($output);
+        $this->readLinky();
         $this->pushData();
 
         return self::SUCCESS;
     }
 
-    private function readLinky(OutputInterface $output): void
+    private function readLinky(): void
     {
         $energyData = $this->linkyReader->read();
 
         if ($energyData !== null) {
-            $this->saveData($energyData, $output);
-            $output->writeln(print_r($energyData->getDataToDisplay(), true));
+            $this->saveData($energyData);
+            $this->output->write(print_r($energyData->getDataToDisplay(), true));
         }
     }
 
-    private function saveData(EnergyData $nextData, OutputInterface $output): void
+    private function saveData(EnergyData $nextData): void
     {
         $previousData = $this->energyDataRepository->findOneBy([], ['time' => 'DESC']);
         if ($previousData === null) {
-            $output->writeln('No previous data found');
+            $this->output->write('No previous data found');
             $this->entityManager->persist($nextData);
             $this->entityManager->flush();
         }
@@ -92,17 +97,17 @@ class LinkyReadCommand extends Command
         $deltaOffPeak = (float) ($nextData->getConsumptionOffPeakHour() - $startOffPeak);
         $deltaPeak    = (float) ($nextData->getConsumptionPeakHour() - $startPeak);
 
-        $output->writeln('Previous data found');
-        $output->writeln(' - start time:     ' . $startTime);
-        $output->writeln(' - start off-peak: ' . $startOffPeak);
-        $output->writeln(' - start peak:     ' . $startPeak);
-        $output->writeln(' - delta time:     ' . $deltaMinutes);
-        $output->writeln(' - delta off-peak: ' . $deltaOffPeak);
-        $output->writeln(' - delta peak:     ' . $deltaPeak);
+        $this->output->write('Previous data found');
+        $this->output->write(' - start time:     ' . $startTime);
+        $this->output->write(' - start off-peak: ' . $startOffPeak);
+        $this->output->write(' - start peak:     ' . $startPeak);
+        $this->output->write(' - delta time:     ' . $deltaMinutes);
+        $this->output->write(' - delta off-peak: ' . $deltaOffPeak);
+        $this->output->write(' - delta peak:     ' . $deltaPeak);
 
 
         for ($minute = 1; $minute < $deltaMinutes; $minute++) {
-            $output->writeln('Create missing data - ' . $minute);
+            $this->output->write('Create missing data - ' . $minute);
 
             $missingData = $this->linkyReader->initNewData();
             $missingData
@@ -149,6 +154,10 @@ class LinkyReadCommand extends Command
 
     private function pushData(): void
     {
+        if (!$this->pushService->getConfEnabled()) {
+            $this->output->write('Push is disabled in configuration');
+            return;
+        }
         $rows = $this->energyDataRepository->findBy(
             ['pushStatus' => [EnergyData::PUSH_STATUS_WAITING, EnergyData::PUSH_STATUS_ERROR]],
             ['id' => 'ASC'],

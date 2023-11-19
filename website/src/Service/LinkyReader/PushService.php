@@ -30,7 +30,6 @@ class PushService
     /**
      * @param EnergyData $energyData
      * @return void
-     * @throws Throwable
      * @SuppressWarnings(PMD.StaticAccess)
      */
     public function push(EnergyData $energyData): void
@@ -87,7 +86,7 @@ class PushService
         }
     }
 
-    private function getConfEnabled(): bool
+    public function getConfEnabled(): bool
     {
         return (int) $this->configurationManager->get('linky.server_push.enable') === 1;
     }
