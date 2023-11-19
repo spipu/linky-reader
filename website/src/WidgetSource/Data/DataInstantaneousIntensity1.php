@@ -13,7 +13,7 @@ class DataInstantaneousIntensity1 extends AbstractSource
     {
         $definition = new Source\SourceSql("data-instantaneous-intensity1", 'energy_data');
         $definition->setType(self::TYPE_INT);
-        $definition->setValueExpression("AVG(main.instantaneous_intensity1)");
+        $definition->setValueExpression("FLOOR(AVG(main.instantaneous_intensity1))");
         $definition->setSuffix(' A');
         $definition->setLowerBetter(true);
 

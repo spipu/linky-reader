@@ -13,7 +13,7 @@ class DataApparentPower extends AbstractSource
     {
         $definition = new Source\SourceSql("data-apparent-power", 'energy_data');
         $definition->setType(self::TYPE_INT);
-        $definition->setValueExpression("AVG(main.apparent_power)");
+        $definition->setValueExpression("FLOOR(AVG(main.apparent_power))");
         $definition->setSuffix(' VA');
         $definition->setLowerBetter(true);
 
