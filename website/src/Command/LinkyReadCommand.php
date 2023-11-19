@@ -70,18 +70,81 @@ class LinkyReadCommand extends Command
         $energyData = $this->linkyReader->read();
 
         if ($energyData !== null) {
-            $previousEnergyData = $this->energyDataRepository->findOneBy([], ['time' => 'DESC']);
-            if ($previousEnergyData) {
-                $delta = $energyData->getConsumptionTotal() - $previousEnergyData->getConsumptionTotal();
-                if ($delta > 0) {
-                    $energyData->setConsumptionDelta($delta);
-                }
-            }
-
-            $this->entityManager->persist($energyData);
-            $this->entityManager->flush();
+            $this->saveData($energyData, $output);
             $output->writeln(print_r($energyData->getDataToDisplay(), true));
         }
+    }
+
+    private function saveData(EnergyData $nextData, OutputInterface $output): void
+    {
+        $previousData = $this->energyDataRepository->findOneBy([], ['time' => 'DESC']);
+        if ($previousData === null) {
+            $output->writeln('No previous data found');
+            $this->entityManager->persist($nextData);
+            $this->entityManager->flush();
+        }
+
+        $startTime    = $previousData->getTime();
+        $startOffPeak = $previousData->getConsumptionOffPeakHour();
+        $startPeak    = $previousData->getConsumptionPeakHour();
+
+        $deltaMinutes = (int) (($nextData->getTime() - $startTime) / 60);
+        $deltaOffPeak = (float) ($nextData->getConsumptionOffPeakHour() - $startOffPeak);
+        $deltaPeak    = (float) ($nextData->getConsumptionPeakHour() - $startPeak);
+
+        $output->writeln('Previous data found');
+        $output->writeln(' - start time:     ' . $startTime);
+        $output->writeln(' - start off-peak: ' . $startOffPeak);
+        $output->writeln(' - start peak:     ' . $startPeak);
+        $output->writeln(' - delta time:     ' . $deltaMinutes);
+        $output->writeln(' - delta off-peak: ' . $deltaOffPeak);
+        $output->writeln(' - delta peak:     ' . $deltaPeak);
+
+
+        for ($minute = 1; $minute < $deltaMinutes; $minute++) {
+            $output->writeln('Create missing data - ' . $minute);
+
+            $missingData = $this->linkyReader->initNewData();
+            $missingData
+                ->setTime($startTime + 60 * $minute)
+                ->setPricingOption($nextData->getPricingOption())
+                ->setSubscribedIntensity($nextData->getSubscribedIntensity())
+                ->setTimeGroup($nextData->getTimeGroup())
+                ->setStateWord($nextData->getStateWord())
+                ->setOffPeakHour($nextData->isOffPeakHour())
+                ->setApparentPower($nextData->getApparentPower())
+                ->setInstantaneousIntensity($nextData->getInstantaneousIntensity())
+                ->setInstantaneousIntensity1($nextData->getInstantaneousIntensity1())
+                ->setInstantaneousIntensity2($nextData->getInstantaneousIntensity2())
+                ->setInstantaneousIntensity3($nextData->getInstantaneousIntensity3())
+                ->setMaxIntensity($nextData->getMaxIntensity())
+                ->setMaxIntensity1($nextData->getMaxIntensity1())
+                ->setMaxIntensity2($nextData->getMaxIntensity2())
+                ->setMaxIntensity3($nextData->getMaxIntensity3())
+                ->setConsumptionOffPeakHour(
+                    $startOffPeak + (int) ((float) $minute * $deltaOffPeak / (float) $deltaMinutes)
+                )
+                ->setConsumptionPeakHour(
+                    $startPeak + (int) ((float) $minute * $deltaPeak / (float) $deltaMinutes)
+                )
+                ->setConsumptionTotal(
+                    $missingData->getConsumptionOffPeakHour() + $missingData->getConsumptionPeakHour()
+                )
+                ->setConsumptionDelta(
+                    $missingData->getConsumptionTotal() - $previousData->getConsumptionTotal()
+                )
+            ;
+
+            $this->entityManager->persist($missingData);
+            $previousData = $missingData;
+        }
+
+        $nextData->setConsumptionDelta(
+            $nextData->getConsumptionTotal() - $previousData->getConsumptionTotal()
+        );
+
+        $this->entityManager->persist($nextData);
+        $this->entityManager->flush();
     }
 
     private function pushData(): void
