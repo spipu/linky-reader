@@ -58,6 +58,45 @@ app:
 spipu:
     dashboard:
         source:
+            data-apparent-power:
+                label: "Data - Apparent Power"
+                title: "Data - Apparent Power"
+            data-consumption-delta:
+                label: "Data - Consumption Delta"
+                title: "Data - Consumption Delta"
+            data-consumption-off-peak-hour:
+                label: "Data - Consumption Off-Peak Hour"
+                title: "Data - Consumption Off-Peak Hour"
+            data-consumption-peak-hour:
+                label: "Data - Consumption Peak Hour"
+                title: "Data - Consumption Peak Hour"
+            data-consumption-total:
+                label: "Data - Consumption Total"
+                title: "Data - Consumption Total"
+            data-count-all:
+                label: "Data - Count - All"
+                title: "Data - Count - All"
+            data-count-push-error:
+                label: "Data - Count - Push Error"
+                title: "Data - Count - Push Error"
+            data-count-push-pushed:
+                label: "Data - Count - Push Pushed"
+                title: "Data - Count - Push Pushed"
+            data-count-push-waiting:
+                label: "Data - Count - Push Waiting"
+                title: "Data - Count - Push Waiting"
+            data-instantaneous-intensity:
+                label: "Data - Instantaneous Intensity"
+                title: "Data - Instantaneous Intensity"
+            data-instantaneous-intensity1:
+                label: "Data - Instantaneous Intensity 1"
+                title: "Data - Instantaneous Intensity 1"
+            data-instantaneous-intensity2:
+                label: "Data - Instantaneous Intensity 2"
+                title: "Data - Instantaneous Intensity 2"
+            data-instantaneous-intensity3:
+                label: "Data - Instantaneous Intensity 3"
+                title: "Data - Instantaneous Intensity 3"
             log-linky-reader:
                 label: "Log - Linky - Reader"
                 title: "Log - Linky - Reader"
