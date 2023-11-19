@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Service\LinkyReader;
 
 use App\Entity\EnergyData;
+use DateTime;
 
 class LinkyReader
 {
@@ -129,10 +130,12 @@ class LinkyReader
         $offPeakValues = ['HC'];
 
         $roundTime = ((int) (time() / 60)) * 60;
+        $roundDate = (new DateTime())->setTimestamp($roundTime);
 
         $data = $this->initNewData();
         $data
             ->setTime($roundTime)
+            ->setCreatedAt($roundDate)
             ->setPricingOption((string) ($values['OPTARIF'] ?? ''))
             ->setSubscribedIntensity((int) ($values['ISOUSC'] ?? 0))
             ->setTimeGroup((string) ($values['HHPHC'] ?? ''))

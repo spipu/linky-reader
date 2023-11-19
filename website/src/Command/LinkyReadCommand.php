@@ -9,6 +9,7 @@ use App\Repository\EnergyDataRepository;
 use App\Service\LinkyReader\LinkyReader;
 use App\Service\LinkyReader\Output;
 use App\Service\LinkyReader\PushService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -109,9 +110,13 @@ class LinkyReadCommand extends Command
         for ($minute = 1; $minute < $deltaMinutes; $minute++) {
             $this->output->write('Create missing data - ' . $minute);
 
+            $missingTime = $startTime + 60 * $minute;
+            $missingDate = (new DateTime())->setTimestamp($missingTime);
+
             $missingData = $this->linkyReader->initNewData();
             $missingData
-                ->setTime($startTime + 60 * $minute)
+                ->setTime($missingTime)
+                ->setCreatedAt($missingDate)
                 ->setPricingOption($nextData->getPricingOption())
                 ->setSubscribedIntensity($nextData->getSubscribedIntensity())
                 ->setTimeGroup($nextData->getTimeGroup())

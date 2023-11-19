@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\EnergyDataRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Spipu\UiBundle\Entity\EntityInterface;
-use Spipu\UiBundle\Entity\TimestampableTrait;
 
 /**
  * @SuppressWarnings(PMD.TooManyFields)
  * @SuppressWarnings(PMD.ExcessivePublicCount)
+ * @SuppressWarnings(PMD.ExcessiveClassComplexity)
  */
 #[ORM\Entity(repositoryClass: EnergyDataRepository::class)]
 #[ORM\Table(name: "energy_data")]
@@ -19,8 +21,6 @@ use Spipu\UiBundle\Entity\TimestampableTrait;
 #[ORM\HasLifecycleCallbacks]
 class EnergyData implements EntityInterface
 {
-    use TimestampableTrait;
-
     public const PUSH_STATUS_WAITING = 'waiting';
     public const PUSH_STATUS_ERROR = 'error';
     public const PUSH_STATUS_PUSHED = 'pushed';
@@ -95,6 +95,12 @@ class EnergyData implements EntityInterface
 
     #[ORM\Column]
     private ?int $apparentPower = null;
+
+    #[ORM\Column(type: "datetime", nullable: false)]
+    private ?DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: "datetime", nullable: false)]
+    private ?DateTimeInterface $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -362,6 +368,30 @@ class EnergyData implements EntityInterface
         $this->apparentPower = $apparentPower;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist()]
+    #[ORM\PreUpdate()]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new DateTime();
     }
 
     public function getDataToPush(): array
