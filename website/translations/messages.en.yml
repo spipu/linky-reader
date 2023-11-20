@@ -97,6 +97,12 @@ spipu:
             data-instantaneous-intensity3:
                 label: "Data - Instantaneous Intensity 3"
                 title: "Data - Instantaneous Intensity 3"
+            last-date:
+                label: "Last - Date"
+                title: "Last - Date"
+            last-consumption-delta:
+                label: "Last - Consumption Delta"
+                title: "Last - Consumption Delta"
             log-linky-reader:
                 label: "Log - Linky - Reader"
                 title: "Log - Linky - Reader"
