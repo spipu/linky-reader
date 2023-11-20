@@ -23,11 +23,7 @@ abstract class AbstractLast extends AbstractSource implements SourceDataDefiniti
 
     public function getDefinition(): Source\SourceFromDefinition
     {
-        $definition = new Source\SourceFromDefinition($this->widgetCode, $this);
-
-        $definition->setSpecificDisplay('history', 'dashboard/widget/text.html.twig');
-
-        return $definition;
+        return new Source\SourceFromDefinition($this->widgetCode, $this);
     }
 
     public function getValue(WidgetRequest $request): float
@@ -47,9 +43,11 @@ abstract class AbstractLast extends AbstractSource implements SourceDataDefiniti
 
     public function getSpecificValues(WidgetRequest $request): array
     {
-        $lastData = $this->energyDataRepository->findOneBy([], ['id' => 'DESC']);
-        return ['value' => $lastData ? $this->getFromData($lastData) : '-'];
+        return [];
     }
 
-    abstract protected function getFromData(EnergyData $energyData): string;
+    protected function getLastData(): ?EnergyData
+    {
+        return $this->energyDataRepository->findOneBy([], ['id' => 'DESC']);
+    }
 }
