@@ -97,12 +97,38 @@ spipu:
             data-instantaneous-intensity3:
                 label: "Data - Instantaneous Intensity 3"
                 title: "Data - Instantaneous Intensity 3"
-            last-date:
-                label: "Last - Date"
-                title: "Last - Date"
+
+            last-apparent-power:
+                label: "Last - Apparent Power"
+                title: "Last - Apparent Power"
             last-consumption-delta:
                 label: "Last - Consumption Delta"
                 title: "Last - Consumption Delta"
+            last-consumption-off-peak-hour:
+                label: "Last - Consumption Off-Peak Hour"
+                title: "Last - Consumption Off-Peak Hour"
+            last-consumption-peak-hour:
+                label: "Last - Consumption Peak Hour"
+                title: "Last - Consumption Peak Hour"
+            last-consumption-total:
+                label: "Last - Consumption Total"
+                title: "Last - Consumption Total"
+            last-date:
+                label: "Last - Date"
+                title: "Last - Date"
+            last-instantaneous-intensity:
+                label: "Last - Instantaneous Intensity"
+                title: "Last - Instantaneous Intensity"
+            last-instantaneous-intensity1:
+                label: "Last - Instantaneous Intensity 1"
+                title: "Last - Instantaneous Intensity 1"
+            last-instantaneous-intensity2:
+                label: "Last - Instantaneous Intensity 2"
+                title: "Last - Instantaneous Intensity 2"
+            last-instantaneous-intensity3:
+                label: "Last - Instantaneous Intensity 3"
+                title: "Last - Instantaneous Intensity 3"
+
             log-linky-reader:
                 label: "Log - Linky - Reader"
                 title: "Log - Linky - Reader"

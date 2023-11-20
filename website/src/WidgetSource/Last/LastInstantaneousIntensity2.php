@@ -7,14 +7,14 @@ namespace App\WidgetSource\Last;
 use Spipu\DashboardBundle\Entity\Source as Source;
 use Spipu\DashboardBundle\Service\Ui\Widget\WidgetRequest;
 
-class LastConsumptionDelta extends AbstractLast
+class LastInstantaneousIntensity2 extends AbstractLast
 {
-    protected string $widgetCode = 'last-consumption-delta';
+    protected string $widgetCode = 'last-instantaneous-intensity2';
 
     public function getDefinition(): Source\SourceFromDefinition
     {
         $definition = parent::getDefinition();
-        $definition->setSuffix(' Wh');
+        $definition->setSuffix(' A');
 
         return $definition;
     }
@@ -22,6 +22,6 @@ class LastConsumptionDelta extends AbstractLast
     public function getValue(WidgetRequest $request): float
     {
         $lastData = $this->getLastData();
-        return $lastData ? (float) $lastData->getConsumptionDelta() : 0.;
+        return $lastData ? (float) $lastData->getInstantaneousIntensity2() : 0.;
     }
 }
