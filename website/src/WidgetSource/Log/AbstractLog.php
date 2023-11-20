@@ -6,8 +6,10 @@ namespace App\WidgetSource\Log;
 
 use App\WidgetSource\AbstractSource;
 use Spipu\DashboardBundle\Entity\Source as Source;
+use Spipu\DashboardBundle\Service\Ui\Widget\WidgetRequest;
+use Spipu\DashboardBundle\Source\SourceDataDefinitionInterface;
 
-abstract class AbstractLog extends AbstractSource
+abstract class AbstractLog extends AbstractSource implements SourceDataDefinitionInterface
 {
     protected string $widgetCode;
     protected string $logFile;
@@ -19,13 +21,55 @@ abstract class AbstractLog extends AbstractSource
         $this->logsDir = $logsDir;
     }
 
-    public function getDefinition(): Source\SourceSql
+    public function getDefinition(): Source\SourceFromDefinition
     {
-        return (new Source\SourceSql($this->widgetCode, ''))
-            ->setDateField(null)
-            ->setSpecificDisplay('file-medical-alt', 'dashboard/widget/log.html.twig')
-            ->setSuffix($this->getLogContent())
-        ;
+        $definition = new Source\SourceFromDefinition($this->widgetCode, $this);
+        $definition->setSpecificDisplay('file-medical-alt', 'dashboard/widget/log.html.twig');
+
+        return $definition;
+    }
+
+
+    /**
+     * @param WidgetRequest $request
+     * @return float
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
+    public function getValue(WidgetRequest $request): float
+    {
+        return 0.;
+    }
+
+    /**
+     * @param WidgetRequest $request
+     * @return float
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
+    public function getPreviousValue(WidgetRequest $request): float
+    {
+        return 0.;
+    }
+
+    /**
+     * @param WidgetRequest $request
+     * @return array
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
+    public function getValues(WidgetRequest $request): array
+    {
+        return [];
+    }
+
+    /**
+     * @param WidgetRequest $request
+     * @return array
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
+    public function getSpecificValues(WidgetRequest $request): array
+    {
+        return [
+            'content' => $this->getLogContent(),
+        ];
     }
 
     private function getLogContent(): string
