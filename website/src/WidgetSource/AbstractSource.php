@@ -6,6 +6,9 @@ namespace App\WidgetSource;
 
 use Spipu\DashboardBundle\Source\SourceDefinitionInterface;
 
+/**
+ * @SuppressWarnings(PMD.NumberOfChildren)
+ */
 abstract class AbstractSource implements SourceDefinitionInterface
 {
     /**

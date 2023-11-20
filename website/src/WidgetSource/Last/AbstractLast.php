@@ -26,21 +26,41 @@ abstract class AbstractLast extends AbstractSource implements SourceDataDefiniti
         return new Source\SourceFromDefinition($this->widgetCode, $this);
     }
 
+    /**
+     * @param WidgetRequest $request
+     * @return float
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
     public function getValue(WidgetRequest $request): float
     {
         return 0.;
     }
 
+    /**
+     * @param WidgetRequest $request
+     * @return float
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
     public function getPreviousValue(WidgetRequest $request): float
     {
         return 0.;
     }
 
+    /**
+     * @param WidgetRequest $request
+     * @return array
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
     public function getValues(WidgetRequest $request): array
     {
         return [];
     }
 
+    /**
+     * @param WidgetRequest $request
+     * @return array
+     * @SuppressWarnings(PMD.UnusedFormalParameter)
+     */
     public function getSpecificValues(WidgetRequest $request): array
     {
         return [];

@@ -22,6 +22,6 @@ class LastDate extends AbstractLast
     public function getSpecificValues(WidgetRequest $request): array
     {
         $lastData = $this->getLastData();
-        return ['value' => $lastData ? date('Y-m-d H:i:s', $lastData->getTime()) : '-'];
+        return ['value' => $lastData ? date('Y-m-d H:i', $lastData->getTime()) : '-'];
     }
 }
