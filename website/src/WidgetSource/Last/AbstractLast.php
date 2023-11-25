@@ -8,7 +8,7 @@ use App\Entity\EnergyData;
 use App\Repository\EnergyDataRepository;
 use App\WidgetSource\AbstractSource;
 use Spipu\DashboardBundle\Entity\Source as Source;
-use Spipu\DashboardBundle\Service\Ui\Widget\WidgetRequest;
+use Spipu\DashboardBundle\Service\Ui\WidgetRequest;
 use Spipu\DashboardBundle\Source\SourceDataDefinitionInterface;
 
 abstract class AbstractLast extends AbstractSource implements SourceDataDefinitionInterface

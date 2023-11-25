@@ -2265,16 +2265,16 @@
         },
         {
             "name": "spipu/configuration-bundle",
-            "version": "v3.0.8",
+            "version": "v3.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-configuration.git",
-                "reference": "3cc74aa54792ef018db3fb21e2d991d1b9310efc"
+                "reference": "9de6b0711fcfcbb4cb32f2ae866d4f91323f72a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-configuration/zipball/3cc74aa54792ef018db3fb21e2d991d1b9310efc",
-                "reference": "3cc74aa54792ef018db3fb21e2d991d1b9310efc",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-configuration/zipball/9de6b0711fcfcbb4cb32f2ae866d4f91323f72a4",
+                "reference": "9de6b0711fcfcbb4cb32f2ae866d4f91323f72a4",
                 "shasum": ""
             },
             "require": {
@@ -2301,9 +2301,9 @@
             "description": "Spipu Configuration Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-configuration/issues",
-                "source": "https://github.com/spipu/symfony-bundle-configuration/tree/v3.0.8"
+                "source": "https://github.com/spipu/symfony-bundle-configuration/tree/v3.0.9"
             },
-            "time": "2023-11-03T16:42:49+00:00"
+            "time": "2023-11-24T11:51:19+00:00"
         },
         {
             "name": "spipu/core-bundle",
@@ -2352,16 +2352,16 @@
         },
         {
             "name": "spipu/dashboard-bundle",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-dashboard.git",
-                "reference": "261edeb604c56ed129dae0c88509fc09b1476113"
+                "reference": "0ba3523d5694c8fc46a57a8a251b873d85d3796f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-dashboard/zipball/261edeb604c56ed129dae0c88509fc09b1476113",
-                "reference": "261edeb604c56ed129dae0c88509fc09b1476113",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-dashboard/zipball/0ba3523d5694c8fc46a57a8a251b873d85d3796f",
+                "reference": "0ba3523d5694c8fc46a57a8a251b873d85d3796f",
                 "shasum": ""
             },
             "require": {
@@ -2393,22 +2393,22 @@
             "description": "Spipu Dashboard Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-dashboard/issues",
-                "source": "https://github.com/spipu/symfony-bundle-dashboard/tree/v3.0.3"
+                "source": "https://github.com/spipu/symfony-bundle-dashboard/tree/v3.0.4"
             },
-            "time": "2023-11-20T21:29:23+00:00"
+            "time": "2023-11-25T22:24:28+00:00"
         },
         {
             "name": "spipu/process-bundle",
-            "version": "v3.0.5",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-process.git",
-                "reference": "11bda086ba97b77e7d0d00a18a85343003242357"
+                "reference": "37219c7e76d5a788d702f7a29786aad32b3018a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-process/zipball/11bda086ba97b77e7d0d00a18a85343003242357",
-                "reference": "11bda086ba97b77e7d0d00a18a85343003242357",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-process/zipball/37219c7e76d5a788d702f7a29786aad32b3018a0",
+                "reference": "37219c7e76d5a788d702f7a29786aad32b3018a0",
                 "shasum": ""
             },
             "require": {
@@ -2439,22 +2439,22 @@
             "description": "Spipu Process Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-process/issues",
-                "source": "https://github.com/spipu/symfony-bundle-process/tree/v3.0.5"
+                "source": "https://github.com/spipu/symfony-bundle-process/tree/v3.0.8"
             },
-            "time": "2023-10-12T11:10:54+00:00"
+            "time": "2023-11-24T09:38:11+00:00"
         },
         {
             "name": "spipu/ui-bundle",
-            "version": "v3.0.1",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spipu/symfony-bundle-ui.git",
-                "reference": "b38d6ee5d177e022ad8a8af3c3527d0f03b02d0e"
+                "reference": "e014a190c45d7801daf43a4857cbd6fb23f86907"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/b38d6ee5d177e022ad8a8af3c3527d0f03b02d0e",
-                "reference": "b38d6ee5d177e022ad8a8af3c3527d0f03b02d0e",
+                "url": "https://api.github.com/repos/spipu/symfony-bundle-ui/zipball/e014a190c45d7801daf43a4857cbd6fb23f86907",
+                "reference": "e014a190c45d7801daf43a4857cbd6fb23f86907",
                 "shasum": ""
             },
             "require": {
@@ -2485,9 +2485,9 @@
             "description": "Spipu User Interface Bundle",
             "support": {
                 "issues": "https://github.com/spipu/symfony-bundle-ui/issues",
-                "source": "https://github.com/spipu/symfony-bundle-ui/tree/v3.0.1"
+                "source": "https://github.com/spipu/symfony-bundle-ui/tree/3.0.2"
             },
-            "time": "2023-07-03T10:36:57+00:00"
+            "time": "2023-11-22T17:48:24+00:00"
         },
         {
             "name": "spipu/user-bundle",
@@ -7726,27 +7726,27 @@
         },
         {
             "name": "twig/extra-bundle",
-            "version": "v3.7.1",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/twig-extra-bundle.git",
-                "reference": "f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3"
+                "reference": "32807183753de0388c8e59f7ac2d13bb47311140"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3",
-                "reference": "f10baafe6eb0ecd615d52d5cbfb713a39f68e8f3",
+                "url": "https://api.github.com/repos/twigphp/twig-extra-bundle/zipball/32807183753de0388c8e59f7ac2d13bb47311140",
+                "reference": "32807183753de0388c8e59f7ac2d13bb47311140",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
-                "symfony/framework-bundle": "^5.4|^6.0",
-                "symfony/twig-bundle": "^5.4|^6.0",
-                "twig/twig": "^2.7|^3.0"
+                "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+                "symfony/twig-bundle": "^5.4|^6.0|^7.0",
+                "twig/twig": "^3.0"
             },
             "require-dev": {
                 "league/commonmark": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^5.4|^6.3",
+                "symfony/phpunit-bridge": "^6.4|^7.0",
                 "twig/cache-extra": "^3.0",
                 "twig/cssinliner-extra": "^2.12|^3.0",
                 "twig/html-extra": "^2.12|^3.0",
@@ -7784,7 +7784,7 @@
                 "twig"
             ],
             "support": {
-                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.7.1"
+                "source": "https://github.com/twigphp/twig-extra-bundle/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -7796,30 +7796,31 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-29T15:34:56+00:00"
+            "time": "2023-11-21T14:02:01+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.7.1",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "a0ce373a0ca3bf6c64b9e3e2124aca502ba39554"
+                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a0ce373a0ca3bf6c64b9e3e2124aca502ba39554",
-                "reference": "a0ce373a0ca3bf6c64b9e3e2124aca502ba39554",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
+                "reference": "9d15f0ac07f44dc4217883ec6ae02fd555c6f71d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-ctype": "^1.8",
-                "symfony/polyfill-mbstring": "^1.3"
+                "symfony/polyfill-mbstring": "^1.3",
+                "symfony/polyfill-php80": "^1.22"
             },
             "require-dev": {
                 "psr/container": "^1.0|^2.0",
-                "symfony/phpunit-bridge": "^5.4.9|^6.3"
+                "symfony/phpunit-bridge": "^5.4.9|^6.3|^7.0"
             },
             "type": "library",
             "autoload": {
@@ -7855,7 +7856,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.7.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -7867,7 +7868,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-28T11:09:02+00:00"
+            "time": "2023-11-21T18:54:41+00:00"
         },
         {
             "name": "webmozart/assert",

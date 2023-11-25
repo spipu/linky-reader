@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\WidgetSource\Last;
 
 use Spipu\DashboardBundle\Entity\Source as Source;
-use Spipu\DashboardBundle\Service\Ui\Widget\WidgetRequest;
+use Spipu\DashboardBundle\Service\Ui\WidgetRequest;
 
 class LastInstantaneousIntensity extends AbstractLast
 {
