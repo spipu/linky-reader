@@ -1,7 +1,5 @@
 #!/bin/bash
 
-PHP_VERSION="7.4"
-
 echo " > MySQL - MariaDB Install"
 
 apt-get -qq -y install mariadb-server > /dev/null
