@@ -29,12 +29,13 @@ class PushService
 
     /**
      * @param EnergyData $energyData
+     * @param int $key
      * @return void
      * @SuppressWarnings(PMD.StaticAccess)
      */
-    public function push(EnergyData $energyData): void
+    public function push(EnergyData $energyData, int $key): void
     {
-        $this->output->write('Push - BEGIN');
+        $this->output->write('Push - BEGIN - ' . $key);
 
         if (!$this->getConfEnabled()) {
             $this->output->write(' => disabled in configuration');
