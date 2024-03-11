@@ -170,6 +170,8 @@ class LinkyReadCommand extends Command
             100
         );
 
+        $this->output->write(sprintf('Found %d rows to push', count($rows)));
+
         foreach ($rows as $row) {
             $this->pushService->push($row);
         }
