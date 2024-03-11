@@ -175,5 +175,7 @@ class LinkyReadCommand extends Command
         foreach ($rows as $row) {
             $this->pushService->push($row);
         }
+
+        $this->output->write('END OF PUSH');
     }
 }
