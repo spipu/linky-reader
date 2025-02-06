@@ -402,6 +402,8 @@ class EnergyData implements EntityInterface
             'subscribedIntensity'       => $this->getSubscribedIntensity(),
             'consumptionOffPeakHour'    => $this->getConsumptionOffPeakHour(),
             'consumptionPeakHour'       => $this->getConsumptionPeakHour(),
+            'consumptionTotal'          => $this->getConsumptionTotal(),
+            'consumptionDelta'          => $this->getConsumptionDelta(),
             'offPeakHour'               => $this->isOffPeakHour(),
             'instantaneousIntensity'    => $this->getInstantaneousIntensity(),
             'maxIntensity'              => $this->getMaxIntensity(),
