@@ -18,8 +18,9 @@
 {% endblock body %}
 
 {% block javascripts %}{{ parent() }}
+    <script src="{{ asset('/bundles/spipuui/js/google-graph-plots.js') }}"></script>
+    <script src="{{ asset('/bundles/spipuui/js/spipu-graph-plots.js') }}"></script>
     <script src="{{ asset('/bundles/spipudashboard/js/dashboard-selector.js') }}"></script>
-    <script src="{{ asset('/bundles/spipudashboard/js/google-graph-plots.js') }}"></script>
     <script src="{{ asset('/bundles/spipudashboard/js/widget-configuration.js') }}"></script>
     {% include manager.definition.templateShowJs %}
 {% endblock javascripts %}
