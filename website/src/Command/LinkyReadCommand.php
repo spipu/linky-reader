@@ -148,13 +148,21 @@ class LinkyReadCommand extends Command
 
             $this->entityManager->persist($missingData);
             $previousData = $missingData;
+
+            if (($minute % 1440) === 0) {
+                $this->output->write(' => Chunk - save the data');
+                $this->entityManager->flush();
+            }
         }
+
+        $this->output->write('Finalize the new data');
 
         $nextData->setConsumptionDelta(
             $nextData->getConsumptionTotal() - $previousData->getConsumptionTotal()
         );
-
         $this->entityManager->persist($nextData);
+
+        $this->output->write('Save the data');
         $this->entityManager->flush();
     }
 
