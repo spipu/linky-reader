@@ -99,6 +99,8 @@ class LinkyReadCommand extends Command
         $deltaOffPeak = (float) ($nextData->getConsumptionOffPeakHour() - $startOffPeak);
         $deltaPeak    = (float) ($nextData->getConsumptionPeakHour() - $startPeak);
 
+        set_time_limit(0);
+
         $this->output->write('Previous data found');
         $this->output->write(' - start time:     ' . $startTime);
         $this->output->write(' - start off-peak: ' . $startOffPeak);
