@@ -14,13 +14,13 @@ spipu_configuration:
         default:  "365"
         unit:     "day(s)"
 
-    linky.server-push.enable:
+    linky.server_push.enable:
         type:     select
         options:  Spipu\UiBundle\Form\Options\YesNo
         required: true
         default:  "0"
 
-    linky.server-push.url:
+    linky.server_push.url:
         type: url
         required: true
 
