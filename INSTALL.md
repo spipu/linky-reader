@@ -2,11 +2,11 @@
 
 ## OS
 
-Download Raspberry OS Imager
+Download Raspberry Pi Imager
 
 https://www.raspberrypi.com/software/
 
-Prepare a SD card with a Debian 11 Bullseye LITE
+Prepare a SD card with a Raspberry Pi OS Trixie (Debian 13) Lite (64-bit)
 
 Install it on your Raspberry PI
 
@@ -24,9 +24,9 @@ sudo raspi-config
 Install the packages
 
 ```bash
-sudo apt update
-sudo apt -y upgrade
-sudo apt -y install ssh vim
+sudo apt-get update
+sudo apt-get -y upgrade
+sudo apt-get -y install ssh vim
 ```
 
 Enable SSH
@@ -56,13 +56,13 @@ Install the Hardware
 Install the Packages
 
 ```bash
-sudo apt -y install apache2 picocom
+sudo apt-get -y install apache2 picocom
 sudo usermod -a -G dialout www-data
 ```
 
 Test
 
-```bash 
+```bash
 sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
 ```
 
@@ -75,9 +75,9 @@ to exit : CTRL + A then CTRL + X
 Install some useful packages
 
 ```bash
-sudo apt -y install sudo lsb-release inetutils-ping curl vim aptitude ca-certificates bash-completion
-sudo apt -y install less lsof rsync net-tools screen ssl-cert strace tcpdump telnet
-sudo apt -y install file unzip ntp acpid iotop dstat apt-transport-https tar wget zip
+sudo apt-get -y install sudo lsb-release inetutils-ping curl vim aptitude ca-certificates bash-completion
+sudo apt-get -y install less lsof rsync net-tools screen ssl-cert strace tcpdump telnet
+sudo apt-get -y install file unzip apt-transport-https tar wget zip
 ```
 
 ### Git
@@ -85,7 +85,7 @@ sudo apt -y install file unzip ntp acpid iotop dstat apt-transport-https tar wge
 Install GIT
 
 ```bash
-sudo apt -y install git
+sudo apt-get -y install git
 vim ~/.gitconfig
 ```
 
@@ -95,7 +95,7 @@ Then clone the project
 
 ```bash
 cd /var
-sudo chown xxxxx.root www
+sudo chown xxxxx:root www
 cd ./www
 git clone git@github.com:spipu/linky-reader.git ./linky-reader
 sudo rm -rf /var/www/html
@@ -108,24 +108,23 @@ Install PHP
 
 ```bash
 curl -sSL https://packages.sury.org/php/README.txt | sudo bash -
-sudo apt update
+sudo apt-get update
 
-sudo apt -y install \
-  libapache2-mod-php8.1 php8.1-cli \
-  php8.1-common php8.1-gd php8.1-mysql \
-  php8.1-bcmath php8.1-curl php8.1-intl php8.1-mbstring \
-  php8.1-readline php8.1-xml php8.1-xsl php8.1-zip \
-  php8.1-mysql php8.1-pdo php8.1-pdo-mysql
+sudo apt-get -y install \
+  libapache2-mod-php8.3 php8.3-cli \
+  php8.3-common php8.3-gd php8.3-mysql \
+  php8.3-bcmath php8.3-curl php8.3-intl php8.3-mbstring \
+  php8.3-readline php8.3-xml php8.3-xsl php8.3-zip \
+  php8.3-mysql php8.3-pdo php8.3-pdo-mysql
 ```
 
 Configure PHP - CLI
 
 ```bash
-sudo vim /etc/php/8.1/cli/conf.d/99-provision.ini
+sudo vim /etc/php/8.3/cli/conf.d/99-provision.ini
 ```
 
 ```ini
-always_populate_raw_post_data = -1
 date.timezone = Europe/Paris
 display_errors = True
 error_log =
@@ -139,7 +138,7 @@ session.auto_start = 0
 Configure PHP - Mod Apache
 
 ```bash
-sudo vim /etc/php/8.1/apache2/conf.d/99-provision.ini
+sudo vim /etc/php/8.3/apache2/conf.d/99-provision.ini
 ```
 
 ```ini
@@ -230,7 +229,7 @@ sudo mkdir -p /var/log/mysql
 sudo vim /etc/mysql/mariadb.conf.d/provision.cnf
 ```
 
-```apacheconf
+```ini
 [mysqld]
 
 # Charset
@@ -299,8 +298,8 @@ Configure the application
 vim /var/www/linky-reader/website/.env.local
 ```
 
-```init
-DATABASE_URL=mysql://linky-reader:xxxxxx@localhost:3306/linky-reader?serverVersion=mariadb-10.5.21
+```ini
+DATABASE_URL=mysql://linky-reader:xxxxxx@localhost:3306/linky-reader?serverVersion=mariadb-11.8.6
 MAILER_DSN=native://default
 
 APP_ENV=prod
@@ -316,7 +315,7 @@ Configure the var folder
 cd /var/www/linky-reader/website
 
 mkdir -p ./var
-sudo chown xxxxx.www-data ./var
+sudo chown xxxxx:www-data ./var
 chmod 775 ./var
 ```
 
