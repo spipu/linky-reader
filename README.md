@@ -7,7 +7,7 @@ You must buy :
  * RaspBerry PI 3
  * Micro Teleinfo V2.0 USB [link](https://www.tindie.com/products/hallard/micro-teleinfo-v20/)
  
-You must install a Rasp Debian 11 Bullseye, with the following packages :
+You must install a Raspberry Pi OS Trixie (Debian 13), with the following packages :
 
  * picocom
  * apache2
