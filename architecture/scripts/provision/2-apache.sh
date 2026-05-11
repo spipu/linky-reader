@@ -1,12 +1,12 @@
 #!/bin/bash
 
-PHP_VERSION="8.1"
+PHP_VERSION="8.3"
 PHP_FOLDER="php/${PHP_VERSION}"
 
 echo " > PHP - Add Sury repository"
 
 curl -sSL https://packages.sury.org/php/README.txt | bash - > /dev/null
-apt update > /dev/null
+apt-get -qq update > /dev/null
 
 echo " > Install Apache + PHP $PHP_VERSION"
 

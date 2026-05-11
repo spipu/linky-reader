@@ -1,5 +1,5 @@
 name=linky-reader
-template=debian-11-bullseye
+template=debian-13-trixie
 host=linky-reader.lxc
 delivery-user=delivery
 mount=.:/var/www/linky-reader
