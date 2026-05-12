@@ -1,74 +1,75 @@
 # Install
 
-## OS
+## Headless Configuration
 
-Download Raspberry Pi Imager
+Download and launch **Raspberry Pi Imager**: https://www.raspberrypi.com/software/
 
-https://www.raspberrypi.com/software/
+### Flash the SD card
 
-Prepare a SD card with a Raspberry Pi OS Trixie (Debian 13) Lite (64-bit)
+1. **Raspberry Pi Device**: Raspberry Pi 3
+2. **Operating System**: Raspberry Pi OS (other) → Raspberry Pi OS Lite (64-bit) — Trixie (Debian 13)
+3. **Storage**: select the SD card
+4. Click **Next** → **Edit Settings**
 
-Install it on your Raspberry PI
+### Advanced Options
 
-## Network
+**General tab:**
 
-```bash
-sudo raspi-config
-```
+| Field | Value |
+|---|---|
+| Set hostname | your hostname |
+| Username | your username |
+| Password | your password |
+| Configure wireless LAN | ✅ SSID, password, Country code |
+| Locale settings | Timezone, Keyboard layout |
 
-* System Options
-* Wireless LAN
+**Services tab:**
 
-## SSH
+| Field | Value |
+|---|---|
+| Enable SSH | ✅ Allow public key authentication |
+| Authorized public key | paste your public key (`~/.ssh/id_*.pub`) |
 
-Install the packages
+→ **Save** → **Yes** → **Yes** (write to card)
 
-```bash
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo apt-get -y install ssh vim
-```
+### First boot
 
-Enable SSH
-
-```bash
-sudo vim /etc/ssh/sshd_config
-```
-
-* port 22
-* PasswordAuthentication yes
-
-```bash
-sudo systemctl enable ssh
-sudo systemctl restart ssh
-sudo systemctl status ssh
-```
-
-From now, do all using SSH, with your personal ssh key, it will be easiest for all the next steps.
+1. Insert the SD card in the Pi and power it on
+2. Wait ~2 minutes
+3. Connect via SSH: `ssh <username>@<hostname>.local`
 
 ## Linky Dial (Port COM)
 
 Install the Hardware
 
-* Connect the Teleinfo USB to your raspberry
-* Connect your linky to the Teleinfo (using a phone or a network cable for example)
+* Connect the Teleinfo USB to your Raspberry Pi
+* Connect your Linky to the Teleinfo USB (using a phone cable or a network cable)
 
 Install the Packages
 
 ```bash
-sudo apt-get -y install apache2 picocom
+sudo apt-get -y install picocom
 sudo usermod -a -G dialout www-data
 ```
 
 Test
 
 ```bash
-sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
+sudo -u www-data picocom -b 1200 -d 7 -p e /dev/ttyUSB0
 ```
 
 to exit : CTRL + A then CTRL + X
 
 ## Project
+
+### Sudoers
+
+Allow your user to run commands as `www-data` without a password (required for deployment scripts):
+
+```bash
+echo "<your-username> ALL=(www-data) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/<your-username>-www-data
+sudo chmod 440 /etc/sudoers.d/<your-username>-www-data
+```
 
 ### Packages
 
@@ -77,7 +78,7 @@ Install some useful packages
 ```bash
 sudo apt-get -y install sudo lsb-release inetutils-ping curl vim aptitude ca-certificates bash-completion
 sudo apt-get -y install less lsof rsync net-tools screen ssl-cert strace tcpdump telnet
-sudo apt-get -y install file unzip apt-transport-https tar wget zip
+sudo apt-get -y install cron file unzip apt-transport-https tar wget zip
 ```
 
 ### Git
@@ -95,7 +96,7 @@ Then clone the project
 
 ```bash
 cd /var
-sudo chown xxxxx:root www
+sudo chown <your-username>:root www
 cd ./www
 git clone git@github.com:spipu/linky-reader.git ./linky-reader
 sudo rm -rf /var/www/html
@@ -112,10 +113,10 @@ sudo apt-get update
 
 sudo apt-get -y install \
   libapache2-mod-php8.3 php8.3-cli \
-  php8.3-common php8.3-gd php8.3-mysql \
-  php8.3-bcmath php8.3-curl php8.3-intl php8.3-mbstring \
-  php8.3-readline php8.3-xml php8.3-xsl php8.3-zip \
-  php8.3-mysql php8.3-pdo php8.3-pdo-mysql
+  php8.3-bcmath php8.3-common php8.3-curl php8.3-gd \
+  php8.3-iconv php8.3-intl php8.3-mbstring php8.3-mysql \
+  php8.3-pdo php8.3-pdo-mysql php8.3-readline \
+  php8.3-simplexml php8.3-xml php8.3-xsl php8.3-zip
 ```
 
 Configure PHP - CLI
@@ -212,6 +213,8 @@ Restart Apache 2
 
 ```bash
 sudo systemctl restart apache2
+sudo systemctl enable apache2
+sudo systemctl status apache2
 ```
 
 ### MySQL
@@ -238,6 +241,7 @@ collation-server = utf8_general_ci
 
 # InnoDB - Other settings
 innodb_flush_log_at_trx_commit = 1
+innodb_file_per_table = 1
 
 # Network and DNS resolution settings
 bind-address = 127.0.0.1
@@ -266,7 +270,7 @@ sudo mysql
 
 ```mysql
 CREATE DATABASE IF NOT EXISTS `linky-reader`;
-CREATE USER IF NOT EXISTS 'linky-reader'@'localhost' IDENTIFIED BY 'xxxxxx';
+CREATE USER IF NOT EXISTS 'linky-reader'@'localhost' IDENTIFIED BY '<your-password>';
 GRANT USAGE ON *.* TO 'linky-reader'@'localhost';
 GRANT ALL PRIVILEGES ON `linky-reader`.* TO 'linky-reader'@'localhost' WITH GRANT OPTION;
 ```
@@ -299,15 +303,26 @@ vim /var/www/linky-reader/website/.env.local
 ```
 
 ```ini
-DATABASE_URL=mysql://linky-reader:xxxxxx@localhost:3306/linky-reader?serverVersion=mariadb-11.8.6
+DATABASE_URL=mysql://linky-reader:<your-password>@localhost:3306/linky-reader?serverVersion=mariadb-11.8.6
 MAILER_DSN=native://default
 
 APP_ENV=prod
-APP_SECRET=xxxx
-APP_ENCRYPTOR_KEY_PAIR=xxxx
+APP_SECRET=<your-app-secret>
+APP_ENCRYPTOR_KEY_PAIR=<your-encryptor-key>
 ```
 
-You must generate the secret, and the encryptor_key.
+Generate `APP_SECRET`:
+
+```bash
+sudo -u www-data php -r "echo bin2hex(random_bytes(16)) . PHP_EOL;"
+```
+
+Generate `APP_ENCRYPTOR_KEY_PAIR`:
+
+```bash
+cd /var/www/linky-reader/website
+sudo -u www-data php bin/console spipu:encryptor:generate-key-pair
+```
 
 Configure the var folder
 
@@ -315,7 +330,7 @@ Configure the var folder
 cd /var/www/linky-reader/website
 
 mkdir -p ./var
-sudo chown xxxxx:www-data ./var
+sudo chown <your-username>:www-data ./var
 chmod 775 ./var
 ```
 

@@ -26,7 +26,7 @@ How to test :
 * launch the following command:
 
 ```bash 
-sudo -u www-data picocom -b 1200 -d 7 -p e -f n /dev/ttyUSB0
+sudo -u www-data picocom -b 1200 -d 7 -p e /dev/ttyUSB0
 ```
 
 Normally it will display Linky direct information.
