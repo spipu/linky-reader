@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 FOLDER="/var/www/linky-reader"
 
 echo ""
@@ -9,6 +7,7 @@ echo "==[STOP APP]=="
 echo ""
 
 sudo -u www-data crontab -r
+set -e
 sudo systemctl stop apache2
 
 echo ""
