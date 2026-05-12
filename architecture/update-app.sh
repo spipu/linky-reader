@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 FOLDER="/var/www/linky-reader"
 
 echo ""
@@ -26,6 +28,16 @@ rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
 sudo -u www-data rm -rf "$FOLDER/website/var/cache" > /dev/null 2>&1
 sudo -u www-data rm -rf "$FOLDER/website/var/log"   > /dev/null 2>&1
 set -e
+
+echo ""
+echo "==[PERMISSIONS]=="
+echo ""
+
+if [ ! -d "$FOLDER/website/var" ]; then
+    mkdir -p "$FOLDER/website/var"
+    chown lamin:www-data "$FOLDER/website/var"
+    chmod 775 "$FOLDER/website/var"
+fi
 
 echo ""
 echo "==[COMPOSER UPDATE]=="
