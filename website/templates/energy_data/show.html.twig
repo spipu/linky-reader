@@ -8,14 +8,12 @@
 {% block main_title %}{{ 'app.page.energy_data.show'|trans({'%id': resource.id}) }}{% endblock %}
 
 {% block main_actions %}
+    {{ buttons.back(path('energy_data_list')) }}
     {% if resource.pushStatus == 'error' %}
-        <form method="post" action="{{ path('energy_data_ignore', {'id': resource.id}) }}" style="display:inline">
-            <button type="submit" class="btn btn-warning btn-sm">
-                <i class="fa fa-ban"></i> Ignore
-            </button>
+        <form method="post" action="{{ path('energy_data_ignore', {'id': resource.id}) }}" style="display: inline">
+            {{ buttons.defaultButton(null, 'Ignore', 'warning', 'ban') }}
         </form>
     {% endif %}
-    {{ buttons.back(path('energy_data_list')) }}
 {% endblock %}
 
 {% block body %}
