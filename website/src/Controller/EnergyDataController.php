@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\EnergyData;
 use App\Repository\EnergyDataRepository;
 use App\Ui\EnergyDataGrid;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Spipu\UiBundle\Service\Ui\GridFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +28,25 @@ class EnergyDataController extends AbstractController
         }
 
         return $this->render('energy_data/list.html.twig', ['manager' => $manager]);
+    }
+
+    #[Route(path: '/ignore/{id}', name: 'energy_data_ignore', methods: 'POST')]
+    public function ignore(
+        EnergyDataRepository $energyDataRepository,
+        EntityManagerInterface $entityManager,
+        int $id
+    ): Response {
+        $resource = $energyDataRepository->findOneBy(['id' => $id]);
+        if (!$resource) {
+            throw $this->createNotFoundException();
+        }
+
+        if ($resource->getPushStatus() === EnergyData::PUSH_STATUS_ERROR) {
+            $resource->setPushStatus(EnergyData::PUSH_STATUS_PUSHED);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('energy_data_show', ['id' => $id]);
     }
 
     #[Route(path: '/show/{id}', name: 'energy_data_show', methods: 'GET')]

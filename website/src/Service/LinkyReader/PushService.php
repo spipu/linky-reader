@@ -29,7 +29,7 @@ class PushService
 
     /**
      * @param EnergyData $energyData
-     * @param int $key
+     * @param integer $key
      * @return void
      * @SuppressWarnings(PMD.StaticAccess)
      */
