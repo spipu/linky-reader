@@ -25,6 +25,8 @@ rm -rf ./var/* > /dev/null 2>&1
 sudo -u www-data rm -rf ./var/* > /dev/null 2>&1
 set -e
 
+sudo -u www-data mkdir -p ./var/cache
+sudo -u www-data mkdir -p ./var/log
 sudo -u www-data ./bin/console spipu:configuration:clear-cache
 sudo -u www-data ./bin/console spipu:ui:grid-config:reset
 sudo -u www-data ./bin/console spipu:fixtures:load

@@ -73,6 +73,8 @@ echo ""
 echo "==[CLEAN CACHE]=="
 echo ""
 
+sudo -u www-data mkdir -p "$FOLDER/website/var/cache"
+sudo -u www-data mkdir -p "$FOLDER/website/var/log"
 sudo -u www-data ./bin/console spipu:configuration:clear-cache
 sudo -u www-data ./bin/console spipu:ui:grid-config:reset
 
@@ -86,11 +88,12 @@ echo ""
 echo "==[CRONTAB]=="
 echo ""
 
+sudo -u www-data crontab "$FOLDER/website/config/crontab"
+
 echo ""
 echo "==[START APP]=="
 echo ""
 
-sudo -u www-data crontab "$FOLDER/website/config/crontab"
 sudo systemctl start apache2
 
 echo ""
