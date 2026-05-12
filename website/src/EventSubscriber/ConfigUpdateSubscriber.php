@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Event;
+namespace App\EventSubscriber;
 
 use Spipu\ConfigurationBundle\Event\ConfigurationEvent;
 use Spipu\ConfigurationBundle\Service\ConfigurationManager;

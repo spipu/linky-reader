@@ -23,14 +23,6 @@ class LinkyReadCommand extends Command
     private EnergyDataRepository $energyDataRepository;
     private Output $output;
 
-    /**
-     * @param LinkyReader $linkyReader
-     * @param PushService $pushService
-     * @param EntityManagerInterface $entityManager
-     * @param EnergyDataRepository $energyDataRepository
-     * @param Output $output
-     * @param string|null $name
-     */
     public function __construct(
         LinkyReader $linkyReader,
         PushService $pushService,
@@ -108,7 +100,6 @@ class LinkyReadCommand extends Command
         $this->output->write(' - delta time:     ' . $deltaMinutes);
         $this->output->write(' - delta off-peak: ' . $deltaOffPeak);
         $this->output->write(' - delta peak:     ' . $deltaPeak);
-
 
         for ($minute = 1; $minute < $deltaMinutes; $minute++) {
             $this->output->write('Create missing data - ' . $minute);

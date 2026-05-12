@@ -1,0 +1,123 @@
+deptrac:
+  paths:
+    - ./src
+  layers:
+    # MVC Layers
+    - name: MVC_Command
+      collectors:
+        - type: classLike
+          value: .*\\Command\\.*
+    - name: MVC_Controller
+      collectors:
+        - type: classLike
+          value: .*\\Controller\\.*
+    - name: MVC_Entity
+      collectors:
+        - type: classLike
+          value: .*\\Entity\\.*
+    - name: MVC_EventSubscriber
+      collectors:
+        - type: classLike
+          value: .*\\EventSubscriber\\.*
+    - name: MVC_Fixture
+      collectors:
+        - type: classLike
+          value: .*\\Fixture\\.*
+    - name: MVC_Form
+      collectors:
+        - type: classLike
+          value: .*\\Form\\[^\\]*$
+    - name: MVC_FormOptions
+      collectors:
+        - type: classLike
+          value: .*\\Form\\Options\\.*
+    - name: MVC_Repository
+      collectors:
+        - type: classLike
+          value: .*\\Repository\\.*
+    - name: MVC_Service
+      collectors:
+        - type: classLike
+          value: .*\\Service\\.*
+    - name: MVC_Step
+      collectors:
+        - type: classLike
+          value: .*\\Step\\.*
+    - name: MVC_Twig
+      collectors:
+        - type: classLike
+          value: .*\\Twig\\.*
+    - name: MVC_Ui
+      collectors:
+        - type: classLike
+          value: .*Bundle\\Ui\\.*
+    - name: MVC_Validator
+      collectors:
+        - type: classLike
+          value: .*\\Validator\\.*
+    - name: MVC_WidgetSource
+      collectors:
+        - type: classLike
+          value: .*\\WidgetSource\\.*
+
+  ruleset:
+    # MVC
+    MVC_Command:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+      - MVC_FormOptions
+    MVC_Controller:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+      - MVC_Ui
+      - MVC_Form
+      - MVC_FormOptions
+      - MVC_Validator
+    MVC_Entity:
+      - MVC_Validator
+      - MVC_FormOptions
+    MVC_EventSubscriber:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+    MVC_Fixture:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+    MVC_Form:
+      - MVC_Entity
+      - MVC_FormOptions
+      - MVC_Repository
+      - MVC_Service
+    MVC_FormOptions:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service
+    MVC_Repository:
+      - MVC_Entity
+    MVC_Service:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_FormOptions
+      - MVC_Form
+    MVC_Step:
+      - MVC_Service
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_FormOptions
+    MVC_Ui:
+      - MVC_Entity
+      - MVC_FormOptions
+      - MVC_Repository
+      - MVC_Service
+    MVC_Validator:
+      - MVC_Repository
+      - MVC_Service
+    MVC_Twig:
+      - MVC_Service
+    MVC_WidgetSource:
+      - MVC_Entity
+      - MVC_Repository
+      - MVC_Service

@@ -1,5 +1,4 @@
 security:
-    enable_authenticator_manager: true
     password_hashers:
         App\Entity\User:
             algorithm: auto
@@ -35,8 +34,6 @@ security:
                 target: app_home
 
     access_control:
-        # Login & Logout
         - { path: ^/login,               roles: PUBLIC_ACCESS }
         - { path: ^/logout,              roles: PUBLIC_ACCESS }
-        # Main
         - { path: ^/,                    roles: PUBLIC_ACCESS }

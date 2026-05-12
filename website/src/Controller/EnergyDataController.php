@@ -8,11 +8,11 @@ use App\Entity\EnergyData;
 use App\Repository\EnergyDataRepository;
 use App\Ui\EnergyDataGrid;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Spipu\UiBundle\Service\Ui\GridFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/energy-data')]
 #[IsGranted('ROLE_ADMIN')]

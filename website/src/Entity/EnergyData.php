@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\EnergyDataRepository;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,7 +14,7 @@ use Spipu\UiBundle\Entity\EntityInterface;
  * @SuppressWarnings(PMD.ExcessivePublicCount)
  * @SuppressWarnings(PMD.ExcessiveClassComplexity)
  */
-#[ORM\Entity(repositoryClass: EnergyDataRepository::class)]
+#[ORM\Entity(repositoryClass: 'App\Repository\EnergyDataRepository')]
 #[ORM\Table(name: "energy_data")]
 #[ORM\UniqueConstraint(name: "ENERGY_DATA_UNIQ_TIME", columns: ["time"])]
 #[ORM\HasLifecycleCallbacks]

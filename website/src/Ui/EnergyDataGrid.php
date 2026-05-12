@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Ui;
 
+use App\Entity\EnergyData;
 use App\Form\Options\EnergyDataPushStatusOptions;
 use Spipu\UiBundle\Service\Ui\Definition\GridDefinitionInterface;
 use Spipu\UiBundle\Entity\Grid;
@@ -32,7 +33,7 @@ class EnergyDataGrid implements GridDefinitionInterface
     {
         $prefixTrans = 'app.entity.energy_data.field.';
 
-        $this->definition = (new Grid\Grid('energy_data', 'App:EnergyData'))
+        $this->definition = (new Grid\Grid('energy_data', EnergyData::class))
             ->setPersonalize(true)
             ->setPager(
                 (new Grid\Pager([20, 50, 100, 200, 1440], 20))
