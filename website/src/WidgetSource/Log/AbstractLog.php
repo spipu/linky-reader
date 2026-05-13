@@ -77,7 +77,7 @@ abstract class AbstractLog extends AbstractSource implements SourceDataDefinitio
         $filename = $this->logsDir . DIRECTORY_SEPARATOR . $this->logFile;
         $content = sprintf('Log File [%s] is missing', $this->logFile);
         if (is_file($filename)) {
-            $content = file_get_contents($filename);
+            $content = (string) file_get_contents($filename);
         }
 
         return $content;
