@@ -16,7 +16,7 @@
         "ext-zip": "*",
         "doctrine/doctrine-bundle": "*",
         "doctrine/doctrine-migrations-bundle": "*",
-        "doctrine/orm": "*",
+        "doctrine/orm": "^3.7",
         "spipu/configuration-bundle": "*",
         "spipu/core-bundle": "*",
         "spipu/dashboard-bundle": "*",
