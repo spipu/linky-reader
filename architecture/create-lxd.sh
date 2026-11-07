@@ -1,36 +1,25 @@
 #!/bin/bash
 
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+set -e
+
+CURRENT_SCRIPT=$(readlink -f "${BASH_SOURCE[0]}")
+ARCHITECTURE_FOLDER=$(basename "$(dirname "$CURRENT_SCRIPT")")
+
+cd "$(dirname "$CURRENT_SCRIPT")"
 cd ../
 
-source ./architecture/conf/env.sh
+ENV_TYPE="lxd"
+source ./$ARCHITECTURE_FOLDER/scripts/include/init.sh
+
+cd ./$ARCHITECTURE_FOLDER/vm/
 
 HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[LXD]==="
+echo "[${HOUR}]===[${ENV_TYPE}]==="
+
 lxd-remove
 lxd-deploy
 echo ""
 
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[CLEAN]==="
-sudo rm -rf ./website/var
-echo ""
+cd - > /dev/null
 
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[PROVISION]==="
-ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/provision.sh
-
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[CreateDB]==="
-ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/createDb.sh
-
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[PERMISSION]==="
-ssh root@${ENV_HOST} $ENV_FOLDER/architecture/scripts/permissions.sh
-
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[INSTALL]==="
-ssh ${ENV_USER}@${ENV_HOST} $ENV_FOLDER/architecture/scripts/install.sh
-
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[FINISHED]==="
+source ./$ARCHITECTURE_FOLDER/create-abstract.sh

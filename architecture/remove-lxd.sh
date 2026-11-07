@@ -1,14 +1,24 @@
 #!/bin/bash
 
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+set -e
+
+CURRENT_SCRIPT=$(readlink -f "${BASH_SOURCE[0]}")
+ARCHITECTURE_FOLDER=$(basename "$(dirname "$CURRENT_SCRIPT")")
+
+cd "$(dirname "$CURRENT_SCRIPT")"
 cd ../
 
-source ./architecture/conf/env.sh
+ENV_TYPE="lxd"
+source ./$ARCHITECTURE_FOLDER/scripts/include/init.sh
+
+ENV_IP=`getent hosts ${ENV_HOST} | awk '{ print $1 }'`
+
+cd ./$ARCHITECTURE_FOLDER/vm/
 
 HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[LXD]==="
+echo "[${HOUR}]===[${ENV_TYPE}]==="
+
 lxd-remove
-echo ""
 
-HOUR=$(date +%H:%M:%S)
-echo "[${HOUR}]===[FINISHED]==="
+cd - > /dev/null
+echo ""

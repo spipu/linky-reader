@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Generic Parameters
+ENV_NAME="linky-reader"
+ENV_HOST="${ENV_NAME}.lxd"
+ENV_SSH_PORT="22"
+ENV_MODE="dev"
+ENV_CODE="dev"
+ENV_USER="delivery"
+ENV_FOLDER="/var/www/$ENV_NAME"
+WEB_FOLDER="website"
+
+# Hosts
+ENV_HOST_SUB_HOSTS=(
+)
+ENV_HOST_SUB_HOSTS_TXT=""
+
+# MySQL
+DB_NAME="$ENV_NAME"
+DB_USER="$ENV_NAME"
+DB_PASS="$ENV_NAME"
+DB_VERSION="11.8.6-MariaDB"
+
+# PHP
+PHP_DISPLAY_ERRORS="True"
+
+# Apache
+EXPORT_FOLDER="$ENV_FOLDER/$WEB_FOLDER/var/export/"
+
+# Symfony
+APP_SECRET="e0ec3f4a09e844c6720494a471139f8e"

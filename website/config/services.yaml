@@ -36,6 +36,7 @@ services:
             $entityClassName: '\App\Entity\User'
             $allowAccountCreation: false
             $allowPasswordRecovery: true
+            $allowRememberMe:       true
 
     # Process Steps
     App\Step\:

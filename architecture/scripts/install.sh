@@ -1,25 +1,35 @@
 #!/bin/bash
 
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+set -e
+
+CURRENT_SCRIPT=$(readlink -f "${BASH_SOURCE[0]}")
+ARCHITECTURE_FOLDER=$(basename "$(dirname "$(dirname "$CURRENT_SCRIPT")")")
+
+cd "$(dirname "$CURRENT_SCRIPT")"
 cd ../../
 
-source ./architecture/conf/env.sh
+ENV_TYPE="none"
+ENV_DO_NOT_GENERATE="yes"
+source ./$ARCHITECTURE_FOLDER/scripts/include/init.sh
 
-cd "${ENV_FOLDER}/website/"
+showTitle "Install"
 
-rm -f ./.env.local
-cp "${ENV_FOLDER}/architecture/conf/dev/.env.local" ./.env.local
+cd ${ENV_FOLDER}/${WEB_FOLDER}
 
-rm -rf ./var/* > /dev/null 2>&1
-sudo -u www-data rm -rf ./var/* > /dev/null 2>&1
+showMessage "Environment"
+createFromTemplate "${CONFIG_FOLDER}/symfony/env.local" "./.env.local"
 
+showMessage "Composer"
 composer install
 
+showMessage "Assets"
 ./bin/console assets:install --symlink --relative
 ./bin/console spipu:assets:install
 
+showMessage "Doctrine Schema"
 ./bin/console doctrine:schema:update --force --dump-sql
 
+showMessage "Clean Symfony Cache"
 set +e
 rm -rf ./var/* > /dev/null 2>&1
 sudo -u www-data rm -rf ./var/* > /dev/null 2>&1
@@ -27,7 +37,14 @@ set -e
 
 sudo -u www-data mkdir -p ./var/cache
 sudo -u www-data mkdir -p ./var/log
+
+showMessage "Clean Spipu Configuration Cache"
 sudo -u www-data ./bin/console spipu:configuration:clear-cache
+
+showMessage "Clean Spipu UI Default Grids"
 sudo -u www-data ./bin/console spipu:ui:grid-config:reset
+
+showMessage "Fixtures"
 sudo -u www-data ./bin/console spipu:fixtures:load
-sudo -u www-data crontab "${ENV_FOLDER}/website/config/crontab"
+
+showMessage "End"

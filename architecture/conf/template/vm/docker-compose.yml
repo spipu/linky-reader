@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  {{ENV_NAME}}:
+    build: ./docker
+    container_name: {{ENV_NAME}}
+    hostname: {{ENV_NAME}}
+    restart: unless-stopped
+    volumes:
+      - ../../:/var/www/{{ENV_NAME}}
+    tty: true
+    ports:
+      - "{{ENV_DOCKER_IP}}:{{ENV_DOCKER_PORT_HTTP}}:80"
+      - "{{ENV_DOCKER_IP}}:{{ENV_DOCKER_PORT_SSH}}:22"

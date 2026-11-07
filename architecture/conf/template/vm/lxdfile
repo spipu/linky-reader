@@ -1,0 +1,6 @@
+name={{ENV_NAME}}
+template=debian-13-trixie
+delivery-user={{ENV_USER}}
+mount=./../../:/var/www/{{ENV_NAME}}
+host={{ENV_HOST}}
+{{ENV_SUB_HOSTS}}

@@ -1,20 +1,21 @@
 #!/bin/bash
 
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+set -e
+
+CURRENT_SCRIPT=$(readlink -f "${BASH_SOURCE[0]}")
+ARCHITECTURE_FOLDER=$(basename "$(dirname "$(dirname "$CURRENT_SCRIPT")")")
+
+cd "$(dirname "$CURRENT_SCRIPT")"
 cd ../../
 
-source ./architecture/conf/env.sh
+ENV_DO_NOT_GENERATE="yes"
+source ./$ARCHITECTURE_FOLDER/scripts/include/init.sh
 
-CONFIG_FOLDER="$ENV_FOLDER/architecture/conf/dev"
-
-ENV_FOLDER_SED=$(echo "$ENV_FOLDER" | sed -e 's/[\/&]/\\&/g')
+showTitle "Provision"
 
 export DEBIAN_FRONTEND=noninteractive
+export LC_ALL=C
 
-source ./architecture/scripts/provision/0-upgrade.sh
-source ./architecture/scripts/provision/1-packages.sh
-source ./architecture/scripts/provision/2-apache.sh
-source ./architecture/scripts/provision/3-mysql.sh
-source ./architecture/scripts/provision/9-composer.sh
+source ./$ARCHITECTURE_FOLDER/scripts/provision/env-${ENV_CODE}.sh
 
 export DEBIAN_FRONTEND=dialog

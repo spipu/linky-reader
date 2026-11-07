@@ -3,83 +3,123 @@ deptrac:
     - ./src
   layers:
     # MVC Layers
+    - name: MVC_Api_Action
+      collectors:
+        - type: classLike
+          value: .*(App|Bundle)\\Api\\Action\\.*
+    - name: MVC_Api_Route
+      collectors:
+        - type: classLike
+          value: .*(App|Bundle)\\Api\\Route\\.*
+    - name: MVC_Assets
+      collectors:
+        - type: classLike
+          value: .*(App|Bundle)\\Assets\\.*
     - name: MVC_Command
       collectors:
         - type: classLike
-          value: .*\\Command\\.*
+          value: .*(App|Bundle)\\Command\\.*
     - name: MVC_Controller
       collectors:
         - type: classLike
-          value: .*\\Controller\\.*
+          value: .*(App|Bundle)\\Controller\\.*
     - name: MVC_Entity
       collectors:
         - type: classLike
-          value: .*\\Entity\\.*
+          value: .*(App|Bundle)\\Entity\\.*
+    - name: MVC_EventListener
+      collectors:
+        - type: classLike
+          value: .*(App|Bundle)\\EventListener\\.*
     - name: MVC_EventSubscriber
       collectors:
         - type: classLike
-          value: .*\\EventSubscriber\\.*
+          value: .*(App|Bundle)\\EventSubscriber\\.*
     - name: MVC_Fixture
       collectors:
         - type: classLike
-          value: .*\\Fixture\\.*
+          value: .*(App|Bundle)\\Fixture\\.*
     - name: MVC_Form
       collectors:
         - type: classLike
-          value: .*\\Form\\[^\\]*$
+          value: .*(App|Bundle)\\Form\\(?!Options\\).*
     - name: MVC_FormOptions
       collectors:
         - type: classLike
-          value: .*\\Form\\Options\\.*
+          value: .*(App|Bundle)\\Form\\Options\\.*
+    - name: MVC_Model
+      collectors:
+        - type: classLike
+          value: .*(App|Bundle)\\Model\\.*
     - name: MVC_Repository
       collectors:
         - type: classLike
-          value: .*\\Repository\\.*
+          value: .*(App|Bundle)\\Repository\\.*
     - name: MVC_Service
       collectors:
         - type: classLike
-          value: .*\\Service\\.*
+          value: .*(App|Bundle)\\Service\\.*
     - name: MVC_Step
       collectors:
         - type: classLike
-          value: .*\\Step\\.*
+          value: .*(App|Bundle)\\Step\\.*
     - name: MVC_Twig
       collectors:
         - type: classLike
-          value: .*\\Twig\\.*
+          value: .*(App|Bundle)\\Twig\\.*
     - name: MVC_Ui
       collectors:
         - type: classLike
-          value: .*Bundle\\Ui\\.*
+          value: .*(App|Bundle)\\Ui\\.*
     - name: MVC_Validator
       collectors:
         - type: classLike
-          value: .*\\Validator\\.*
+          value: .*(App|Bundle)\\Validator\\.*
     - name: MVC_WidgetSource
       collectors:
         - type: classLike
-          value: .*\\WidgetSource\\.*
+          value: .*(App|Bundle)\\WidgetSource\\.*
 
   ruleset:
     # MVC
-    MVC_Command:
+    MVC_Api_Action:
       - MVC_Entity
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
+    MVC_Api_Route:
+      - MVC_Api_Action
+      - MVC_Entity
+      - MVC_Model
+      - MVC_Service
+    MVC_Assets: ~
+    MVC_Command:
+      - MVC_Entity
+      - MVC_Fixture
       - MVC_FormOptions
+      - MVC_Model
+      - MVC_Repository
+      - MVC_Service
     MVC_Controller:
       - MVC_Entity
+      - MVC_Form
+      - MVC_FormOptions
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
       - MVC_Ui
-      - MVC_Form
-      - MVC_FormOptions
       - MVC_Validator
     MVC_Entity:
-      - MVC_Validator
       - MVC_FormOptions
+      - MVC_Model
+      - MVC_Validator
+    MVC_EventListener:
+      - MVC_Entity
+      - MVC_Model
+      - MVC_Service
     MVC_EventSubscriber:
       - MVC_Entity
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
     MVC_Fixture:
@@ -89,35 +129,52 @@ deptrac:
     MVC_Form:
       - MVC_Entity
       - MVC_FormOptions
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
+      - MVC_Validator
     MVC_FormOptions:
       - MVC_Entity
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
+    MVC_Model:
+      - MVC_Entity
     MVC_Repository:
       - MVC_Entity
+      - MVC_Model
     MVC_Service:
+      - MVC_Assets
       - MVC_Entity
-      - MVC_Repository
-      - MVC_FormOptions
       - MVC_Form
+      - MVC_FormOptions
+      - MVC_Model
+      - MVC_Repository
     MVC_Step:
-      - MVC_Service
-      - MVC_Entity
-      - MVC_Repository
-      - MVC_FormOptions
-    MVC_Ui:
       - MVC_Entity
       - MVC_FormOptions
-      - MVC_Repository
-      - MVC_Service
-    MVC_Validator:
+      - MVC_Model
       - MVC_Repository
       - MVC_Service
     MVC_Twig:
+      - MVC_Entity
+      - MVC_FormOptions
+      - MVC_Model
+      - MVC_Repository
+      - MVC_Service
+    MVC_Ui:
+      - MVC_Entity
+      - MVC_Form
+      - MVC_FormOptions
+      - MVC_Model
+      - MVC_Repository
+      - MVC_Service
+      - MVC_Validator
+    MVC_Validator:
+      - MVC_Repository
       - MVC_Service
     MVC_WidgetSource:
       - MVC_Entity
+      - MVC_FormOptions
       - MVC_Repository
       - MVC_Service
