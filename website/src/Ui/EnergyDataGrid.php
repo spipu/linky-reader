@@ -89,14 +89,14 @@ class EnergyDataGrid implements GridDefinitionInterface
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
-                    ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' A'])
+                    ->setOptions(['td-css-class' => 'text-center', 'suffix' => ' VA'])
             )
             ->addColumn(
                 (new Grid\Column('pushNbTry', $prefixTrans . 'push_nb_try', 'pushNbTry', 70))
                     ->setType((new Grid\ColumnType(Grid\ColumnType::TYPE_INTEGER)))
                     ->setFilter((new Grid\ColumnFilter(true))->useRange())
                     ->useSortable()
-                    ->setOptions(['td-css-class' => 'text-left'])
+                    ->setOptions(['td-css-class' => 'text-start'])
             )
             ->addColumn(
                 (new Grid\Column('pushStatus', $prefixTrans . 'push_status', 'pushStatus', 80))

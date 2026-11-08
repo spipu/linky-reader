@@ -55,6 +55,8 @@ app:
                 error:  "Error"
                 pushed:  "Pushed"
                 waiting: "Waiting"
+            action:
+                ignore: "Ignore"
 spipu:
     dashboard:
         source:

@@ -10,9 +10,7 @@
 {% block main_actions %}
     {{ buttons.back(path('energy_data_list')) }}
     {% if resource.pushStatus == 'error' %}
-        <form method="post" action="{{ path('energy_data_ignore', {'id': resource.id}) }}" style="display: inline">
-            {{ buttons.defaultButton(null, 'Ignore', 'warning', 'ban') }}
-        </form>
+        {{ buttons.postButton(path('energy_data_ignore', {'id': resource.id}), 'ignore_energy_data_' ~ resource.id, 'app.entity.energy_data.action.ignore', 'warning', 'ban') }}
     {% endif %}
 {% endblock %}
 
@@ -20,7 +18,7 @@
     <div class="row">
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.header'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.fieldset.header'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.field.id'|trans   }}</th>
@@ -51,7 +49,7 @@
         </div>
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.plan'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.fieldset.plan'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.field.pricing_option'|trans   }}</th>
@@ -80,11 +78,11 @@
         </div>
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.push'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.fieldset.push'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.field.push_status'|trans   }}</th>
-                        <td>{{ resource.pushStatus }}</td>
+                        <td>{{ ('app.entity.energy_data.status.' ~ resource.pushStatus)|trans }}</td>
                     </tr>
                     <tr>
                         <th>{{ 'app.entity.energy_data.field.push_nb_try'|trans   }}</th>
@@ -100,7 +98,7 @@
 
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.fieldset.consumption'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.fieldset.consumption'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.show.consumption_off_peak_hour'|trans   }}</th>
@@ -123,7 +121,7 @@
         </div>
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.field.instantaneous_intensity'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.field.instantaneous_intensity'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.show.global'|trans }}</th>
@@ -146,7 +144,7 @@
         </div>
         <div class="col-12 col-md-6 col-xl-4">
             <div class="card mb-3">
-                <div class="card-header font-weight-bold">{{ 'app.entity.energy_data.field.max_intensity'|trans }}</div>
+                <div class="card-header fw-bold">{{ 'app.entity.energy_data.field.max_intensity'|trans }}</div>
                 <table class="table table-striped table-hover table-sm mb-0">
                     <tr>
                         <th class="w-50">{{ 'app.entity.energy_data.show.global'|trans }}</th>

@@ -8,8 +8,9 @@ use App\Entity\EnergyData;
 use App\Repository\EnergyDataRepository;
 use App\Ui\EnergyDataGrid;
 use Doctrine\ORM\EntityManagerInterface;
+use Spipu\CoreBundle\Controller\AbstractController;
 use Spipu\UiBundle\Service\Ui\GridFactory;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -32,6 +33,7 @@ class EnergyDataController extends AbstractController
 
     #[Route(path: '/ignore/{id}', name: 'energy_data_ignore', methods: 'POST')]
     public function ignore(
+        Request $request,
         EnergyDataRepository $energyDataRepository,
         EntityManagerInterface $entityManager,
         int $id
@@ -39,6 +41,12 @@ class EnergyDataController extends AbstractController
         $resource = $energyDataRepository->findOneBy(['id' => $id]);
         if (!$resource) {
             throw $this->createNotFoundException();
+        }
+
+        if (!$this->isCsrfTokenValid('ignore_energy_data_' . $resource->getId(), $request->request->get('_token'))) {
+            $this->addFlashTrans('danger', 'spipu.ui.error.token');
+
+            return $this->redirectToRoute('energy_data_show', ['id' => $id]);
         }
 
         if ($resource->getPushStatus() === EnergyData::PUSH_STATUS_ERROR) {
